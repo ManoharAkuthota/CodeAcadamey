@@ -47,7 +47,10 @@ export default function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/courses" element={<CoursesPage />} />
-                <Route path="/courses/:slug" element={<CourseDetailPage />} />
+                <Route path="/courses/:courseId" element={<CourseDetailPage />} />
+                <Route path="/course/:courseId" element={<CourseDetailPage />} />
+                <Route path="/courses/slug/:slug" element={<CourseDetailPage />} />
+                <Route path="/course/slug/:slug" element={<CourseDetailPage />} />
                 <Route path="/languages" element={<LanguagesPage />} />
                 <Route path="/languages/:slug" element={<LanguageDetailPage />} />
                 <Route path="/frameworks" element={<FrameworksPage />} />
@@ -70,6 +73,14 @@ export default function App() {
                 />
                 <Route
                   path="/lessons/:topicId"
+                  element={
+                    <ProtectedRoute>
+                      <LessonPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/lesson/:topicId"
                   element={
                     <ProtectedRoute>
                       <LessonPage />

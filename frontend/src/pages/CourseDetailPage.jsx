@@ -7,26 +7,25 @@ import {
 import { courseService } from '../services/courseService';
 
 export default function CourseDetailPage() {
-  const { courseId } = useParams();
+  const { courseId, slug } = useParams();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedModules, setExpandedModules] = useState({});
 
   useEffect(() => {
-    if (courseId) {
-      setLoading(true);
-      courseService.getCourseById(courseId)
-        .then((res) => {
-          setCourse(res.data);
-          // Expand all modules by default
-          const exp = {};
-          res.data?.modules?.forEach(m => exp[m.id] = true);
-          setExpandedModules(exp);
-        })
-        .catch((err) => console.error(err))
-        .finally(() => setLoading(false));
-    }
-  }, [courseId]);
+    const identifier = courseId || slug || '1';
+    setLoading(true);
+    courseService.getCourseById(identifier)
+      .then((res) => {
+        setCourse(res.data);
+        // Expand all modules by default
+        const exp = {};
+        res.data?.modules?.forEach(m => exp[m.id] = true);
+        setExpandedModules(exp);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, [courseId, slug]);
 
   const toggleModule = (modId) => {
     setExpandedModules(prev => ({ ...prev, [modId]: !prev[modId] }));
@@ -176,7 +175,7 @@ export default function CourseDetailPage() {
                             </span>
                           ) : (
                             <Link
-                              to={topic.lessonId ? `/lesson/${topic.lessonId}` : '#'}
+                              to={topic.lessonId ? `/lesson/${topic.lessonId}` : `/lesson/${topic.id}`}
                               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold border border-brand-200 transition-colors"
                             >
                               <span>{topic.isCompleted ? 'Review' : 'Start'}</span>

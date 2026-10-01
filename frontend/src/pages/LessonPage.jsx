@@ -15,7 +15,7 @@ import QuizModal from '../components/quiz/QuizModal';
 import { useAuth } from '../context/AuthContext';
 
 export default function LessonPage() {
-  const { lessonId } = useParams();
+  const { lessonId, topicId, id } = useParams();
   const [lesson, setLesson] = useState(null);
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,40 +29,38 @@ export default function LessonPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (lessonId) {
-      setLoading(true);
-      lessonService.getLessonById(lessonId)
-        .then((res) => {
-          if (res.data) {
-            setLesson(res.data);
-            setIsCompleted(res.data.isCompleted);
-            setIsBookmarked(res.data.isBookmarked);
+    const targetId = lessonId || topicId || id || '1001';
+    setLoading(true);
+    lessonService.getLessonById(targetId)
+      .then((res) => {
+        if (res.data) {
+          setLesson(res.data);
+          setIsCompleted(res.data.isCompleted || false);
+          setIsBookmarked(res.data.isBookmarked || false);
 
-            // Fetch course details for left curriculum sidebar
-            if (res.data.courseId) {
-              courseService.getCourseById(res.data.courseId)
-                .then((cRes) => setCourse(cRes.data))
-                .catch(() => {});
-            }
+          // Fetch course details for left curriculum sidebar
+          const cid = res.data.courseId || 1;
+          courseService.getCourseById(cid)
+            .then((cRes) => setCourse(cRes.data))
+            .catch(() => {});
 
-            // Fetch user personal note for topic
-            if (res.data.topicId) {
-              noteService.getNoteByTopic(res.data.topicId)
-                .then((nRes) => {
-                  if (nRes.data?.contentMarkdown) {
-                    setNoteContent(nRes.data.contentMarkdown);
-                  } else {
-                    setNoteContent('');
-                  }
-                })
-                .catch(() => {});
-            }
+          // Fetch user personal note for topic
+          if (res.data.topicId) {
+            noteService.getNoteByTopic(res.data.topicId)
+              .then((nRes) => {
+                if (nRes.data?.contentMarkdown) {
+                  setNoteContent(nRes.data.contentMarkdown);
+                } else {
+                  setNoteContent('');
+                }
+              })
+              .catch(() => {});
           }
-        })
-        .catch((err) => console.error('Failed to load lesson', err))
-        .finally(() => setLoading(false));
-    }
-  }, [lessonId]);
+        }
+      })
+      .catch((err) => console.error('Failed to load lesson:', err))
+      .finally(() => setLoading(false));
+  }, [lessonId, topicId, id]);
 
   const handleToggleComplete = async () => {
     if (!lesson) return;
@@ -170,7 +168,7 @@ export default function LessonPage() {
                     return (
                       <Link
                         key={top.id}
-                        to={top.lessonId ? `/lesson/${top.lessonId}` : `/course/${course.id}`}
+                        to={`/lesson/${top.lessonId || top.id}`}
                         className={`block p-2 rounded-lg text-xs transition-colors flex items-center justify-between ${
                           isCurrent 
                             ? 'bg-brand-50 text-brand-700 font-semibold border border-brand-200' 

@@ -11,16 +11,24 @@ import {
   PolarGrid, PolarAngleAxis, PolarRadiusAxis 
 } from 'recharts';
 import { progressService } from '../services/platformServices';
+import { courseService } from '../services/courseService';
 import { useAuth } from '../context/AuthContext';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [data, setData] = useState(null);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    progressService.getDashboardAnalytics()
-      .then((res) => setData(res.data))
+    Promise.all([
+      progressService.getDashboardAnalytics().catch(() => ({ data: null })),
+      courseService.getAllCourses().catch(() => ({ data: [] }))
+    ])
+      .then(([progressRes, coursesRes]) => {
+        setData(progressRes?.data || null);
+        setCourses(coursesRes?.data || []);
+      })
       .catch((err) => console.error('Failed to load dashboard data', err))
       .finally(() => setLoading(false));
   }, []);
@@ -118,6 +126,78 @@ export default function DashboardPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* Enrolled Courses & Active Curriculum Tracks */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-brand-600" /> Your Courses & Curriculum Tracks
+            </h2>
+            <p className="text-xs text-slate-500">Resume your active courses and master software engineering concepts</p>
+          </div>
+          <Link
+            to="/courses"
+            className="text-xs font-semibold text-brand-600 hover:text-brand-700 flex items-center gap-1 hover:underline"
+          >
+            Explore All Courses <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {courses.slice(0, 6).map((course) => (
+            <div
+              key={course.id}
+              className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-brand-300 transition-all flex flex-col justify-between space-y-4 hover:shadow-md group shadow-xs"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase font-bold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded border border-brand-200">
+                    {course.level || 'All Levels'}
+                  </span>
+                  <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" /> {course.estimatedHours || 30}h
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-600 transition-colors line-clamp-1">
+                    {course.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mt-1">
+                    {course.description}
+                  </p>
+                </div>
+
+                <div className="space-y-1 pt-1">
+                  <div className="flex justify-between text-[11px] font-mono text-slate-500">
+                    <span>Progress</span>
+                    <span>{course.progressPercentage || 0}%</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-brand-600 rounded-full transition-all duration-300"
+                      style={{ width: `${course.progressPercentage || 0}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-mono text-[11px]">
+                  {course.moduleCount || 3} Modules · {course.topicCount || 8} Topics
+                </span>
+                <Link
+                  to={`/courses/${course.id}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition-colors shadow-xs"
+                >
+                  {course.progressPercentage > 0 ? 'Continue' : 'Start Course'} <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Charts Section: Weekly Activity & Skill Radar */}
