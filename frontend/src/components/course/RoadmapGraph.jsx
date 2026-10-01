@@ -131,17 +131,17 @@ export default function RoadmapGraph({ userProgressTopicIds = [] }) {
             
             {/* Level Header Card */}
             <div className="flex items-center gap-4 mb-5">
-              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${lvl.color} flex items-center justify-center text-white shadow-xl shadow-slate-950/50 shrink-0`}>
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${lvl.color} flex items-center justify-center text-white shadow-sm shrink-0`}>
                 <Icon className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   {lvl.title}
-                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-brand-50 text-brand-700 border border-brand-200">
                     Step {lvl.levelNumber} of 8
                   </span>
                 </h3>
-                <p className="text-xs text-slate-400">{lvl.subtitle}</p>
+                <p className="text-xs text-slate-500">{lvl.subtitle}</p>
               </div>
             </div>
 
@@ -154,25 +154,25 @@ export default function RoadmapGraph({ userProgressTopicIds = [] }) {
                   <Link
                     key={nodeIdx}
                     to={node.path}
-                    className="relative p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-brand-500/50 hover:bg-slate-850 transition-all hover:shadow-xl hover:shadow-brand-500/5 flex flex-col justify-between group/card"
+                    className="relative p-4 rounded-xl bg-white border border-slate-200 hover:border-brand-400 hover:bg-brand-50/20 transition-all hover:shadow-md flex flex-col justify-between group/card shadow-xs"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-sm text-slate-200 group-hover/card:text-white">
+                        <span className="font-semibold text-sm text-slate-900 group-hover/card:text-brand-600">
                           {node.name}
                         </span>
                         {isCompleted ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         ) : (
-                          <Circle className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                          <Circle className="w-3.5 h-3.5 text-slate-300 shrink-0" />
                         )}
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
+                      <p className="text-xs text-slate-500 leading-relaxed">
                         {node.desc}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-brand-400 font-medium">
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-brand-600 font-medium">
                       <span>Explore Topics</span>
                       <span className="opacity-0 group-hover/card:opacity-100 transition-opacity">→</span>
                     </div>
@@ -184,7 +184,7 @@ export default function RoadmapGraph({ userProgressTopicIds = [] }) {
             {/* Down Connector Arrow (except last level) */}
             {index < levels.length - 1 && (
               <div className="flex justify-center my-6">
-                <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
+                <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 shadow-xs">
                   <ArrowDown className="w-4 h-4" />
                 </div>
               </div>

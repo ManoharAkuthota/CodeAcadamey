@@ -38,7 +38,7 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-brand-500 selection:text-white font-sans antialiased">
+          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-500 selection:text-white font-sans antialiased overflow-x-hidden w-full">
             <Navbar />
             <main className="flex-1">
               <Routes>

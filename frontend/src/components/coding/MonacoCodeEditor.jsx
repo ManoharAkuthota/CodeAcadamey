@@ -12,16 +12,16 @@ export default function MonacoCodeEditor({
   const monacoLang = language === 'c' || language === 'cpp' ? 'cpp' : language === 'sql' ? 'sql' : language === 'python' ? 'python' : language === 'javascript' ? 'javascript' : 'java';
 
   return (
-    <div className="w-full h-full rounded-xl overflow-hidden border border-slate-800 bg-[#1e1e1e] shadow-2xl">
+    <div className="w-full h-full rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm">
       <Editor
         height={height}
         language={monacoLang}
         value={value}
         onChange={(newVal) => onChange && onChange(newVal || '')}
-        theme="vs-dark"
+        theme="vs"
         options={{
           fontSize: 13,
-          fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+          fontFamily: "'JetBrains Mono', 'Fira Code', ui-monospace, monospace",
           minimap: { enabled: false },
           scrollBeyondLastLine: false,
           automaticLayout: true,

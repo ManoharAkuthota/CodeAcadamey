@@ -20,14 +20,14 @@ export default function LearningPathPage() {
       
       {/* Page Header */}
       <div className="space-y-3 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold">
           <MapPin className="w-3.5 h-3.5" />
           <span>Architected 8-Level Developer Roadmap</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
           Your Structured Engineering Journey
         </h1>
-        <p className="text-sm text-slate-400 leading-relaxed">
+        <p className="text-sm text-slate-600 leading-relaxed">
           Master computer science foundations, strongly typed OOP, modern web frameworks, relational database optimization, and DevOps deployment step-by-step.
         </p>
       </div>

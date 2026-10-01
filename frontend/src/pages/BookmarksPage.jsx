@@ -73,32 +73,32 @@ export default function BookmarksPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-950 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400">
+              <div className="p-2 rounded-xl bg-brand-50 border border-brand-200 text-brand-600">
                 <Bookmark className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white tracking-tight">Saved Bookmarks</h1>
-                <p className="text-xs text-slate-400">Quickly jump back to lessons, code snippets, and challenges you saved</p>
+                <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Saved Bookmarks</h1>
+                <p className="text-xs text-slate-500">Quickly jump back to lessons, code snippets, and challenges you saved</p>
               </div>
             </div>
           </div>
 
           {/* Search Bar */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search bookmarks..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 transition-colors shadow-2xs"
             />
           </div>
         </div>
@@ -109,10 +109,10 @@ export default function BookmarksPage() {
             <button
               key={type}
               onClick={() => setSelectedType(type)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedType === type
-                  ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/20'
-                  : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  ? 'bg-brand-600 text-white shadow-xs'
+                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 shadow-2xs'
               }`}
             >
               {type === 'ALL' ? 'All Bookmarks' : type.charAt(0) + type.slice(1).toLowerCase() + 's'}
@@ -124,7 +124,7 @@ export default function BookmarksPage() {
         </div>
 
         {feedback && (
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded-xl flex items-center gap-2 animate-fade-in">
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs rounded-xl flex items-center gap-2 animate-fade-in">
             <CheckCircle2 className="w-4 h-4" />
             <span>{feedback}</span>
           </div>
@@ -134,7 +134,7 @@ export default function BookmarksPage() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-40 rounded-2xl bg-slate-900/60 border border-slate-800 animate-pulse"></div>
+              <div key={i} className="h-40 rounded-2xl bg-white border border-slate-200 animate-pulse"></div>
             ))}
           </div>
         ) : filteredBookmarks.length > 0 ? (
@@ -142,41 +142,41 @@ export default function BookmarksPage() {
             {filteredBookmarks.map((b) => (
               <div
                 key={b.id}
-                className="group relative bg-slate-900/40 hover:bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 flex flex-col justify-between transition-all shadow-sm hover:shadow-xl hover:shadow-black/40"
+                className="group relative bg-white hover:border-brand-300 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between transition-all shadow-xs hover:shadow-md"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-slate-800/80 text-slate-300 border border-slate-700/50">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-slate-50 text-slate-700 border border-slate-200">
                       {getTypeIcon(b.itemType)}
                       {b.itemType}
                     </span>
                     <button
                       onClick={() => handleDelete(b.id)}
-                      className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                       title="Delete bookmark"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
 
-                  <h3 className="font-semibold text-white group-hover:text-brand-400 text-sm line-clamp-2 transition-colors">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-brand-600 text-sm line-clamp-2 transition-colors">
                     {b.title || `Bookmarked ${b.itemType}`}
                   </h3>
 
                   {b.notes && (
-                    <p className="text-xs text-slate-400 line-clamp-2 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60 font-mono">
+                    <p className="text-xs text-slate-600 line-clamp-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200 font-mono">
                       {b.notes}
                     </p>
                   )}
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                <div className="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                   <span className="text-[11px] text-slate-500 font-mono">
                     {b.createdAt ? new Date(b.createdAt).toLocaleDateString() : 'Recently'}
                   </span>
                   <Link
                     to={getTargetUrl(b)}
-                    className="inline-flex items-center gap-1 font-semibold text-brand-400 hover:text-brand-300 transition-colors"
+                    className="inline-flex items-center gap-1 font-semibold text-brand-600 hover:text-brand-700 transition-colors"
                   >
                     Open Resource <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
@@ -185,24 +185,24 @@ export default function BookmarksPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 px-4 rounded-3xl border border-dashed border-slate-800 bg-slate-900/20">
-            <div className="w-12 h-12 mx-auto mb-4 rounded-2xl bg-slate-800/60 flex items-center justify-center text-slate-500">
+          <div className="text-center py-16 px-4 rounded-3xl border border-dashed border-slate-200 bg-white">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400">
               <Bookmark className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-white mb-1">No bookmarks found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto mb-6">
+            <h3 className="text-base font-bold text-slate-900 mb-1">No bookmarks found</h3>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto mb-6">
               Save key concepts, lessons, or interview questions while learning to reference them here later.
             </p>
             <div className="flex justify-center gap-3">
               <Link
                 to="/courses"
-                className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-semibold text-white shadow-lg shadow-brand-600/20 transition-all"
+                className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
               >
                 Explore Courses
               </Link>
               <Link
                 to="/practice"
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-all"
+                className="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 border border-slate-300 transition-all cursor-pointer shadow-xs"
               >
                 Coding Practice
               </Link>

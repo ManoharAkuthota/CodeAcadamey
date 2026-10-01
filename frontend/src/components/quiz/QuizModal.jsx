@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, CheckCircle, XCircle, ArrowRight, Award, 
-  RotateCcw, Sparkles, AlertCircle, Clock, Check
+  RotateCcw, Sparkles, AlertCircle, Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { quizService } from '../../services/quizService';
@@ -38,7 +38,6 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
     setSelectedAnswers((prev) => {
       const current = prev[questionId] || [];
       const exists = current.includes(option);
-      // If single choice, replace array
       return {
         ...prev,
         [questionId]: exists ? [] : [option]
@@ -71,18 +70,18 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl max-h-[90vh] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-3xl max-h-[90vh] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+        <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded border border-brand-500/20">
-              Interactive Knowledge Check
+            <span className="text-[10px] font-mono uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded border border-brand-200 font-bold">
+              Knowledge Verification
             </span>
-            <h3 className="text-base font-bold text-white mt-1">{quiz?.title || 'Topic Quiz'}</h3>
+            <h3 className="text-base font-bold text-slate-900 mt-1">{quiz?.title || 'Topic Quiz'}</h3>
           </div>
-          <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
+          <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -90,8 +89,8 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
           {loading ? (
-            <div className="py-20 text-center text-slate-400 flex flex-col items-center gap-3">
-              <div className="w-8 h-8 border-3 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="py-20 text-center text-slate-500 flex flex-col items-center gap-3">
+              <div className="w-8 h-8 border-3 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
               <p className="text-xs">Loading quiz questions...</p>
             </div>
           ) : result ? (
@@ -100,28 +99,28 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
               {/* Score Banner */}
               <div className={`p-6 rounded-2xl border text-center space-y-3 ${
                 result.passed 
-                  ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' 
-                  : 'bg-rose-950/30 border-rose-500/30 text-rose-300'
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-900' 
+                  : 'bg-rose-50 border-rose-200 text-rose-900'
               }`}>
-                <div className="w-16 h-16 mx-auto rounded-full flex items-center justify-center bg-slate-900 border border-slate-800 shadow-xl">
+                <div className="w-14 h-14 mx-auto rounded-full flex items-center justify-center bg-white border border-slate-200 shadow-xs">
                   {result.passed ? (
-                    <Award className="w-8 h-8 text-emerald-400" />
+                    <Award className="w-7 h-7 text-emerald-600" />
                   ) : (
-                    <AlertCircle className="w-8 h-8 text-rose-400" />
+                    <AlertCircle className="w-7 h-7 text-rose-600" />
                   )}
                 </div>
                 <div>
-                  <h4 className="text-2xl font-bold text-white">
+                  <h4 className="text-xl font-bold text-slate-900">
                     {result.passed ? 'Quiz Passed!' : 'Needs Revision'}
                   </h4>
-                  <p className="text-sm font-semibold mt-1">
+                  <p className="text-sm font-semibold mt-1 text-slate-700">
                     Score: {result.score} / {result.totalQuestions} ({result.percentage}%)
                   </p>
                 </div>
 
                 {/* Adaptive Recommendation */}
-                <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800 text-left text-xs leading-relaxed text-slate-200">
-                  <div className="flex items-center gap-2 text-brand-400 font-semibold mb-1">
+                <div className="p-4 bg-white rounded-xl border border-slate-200 text-left text-xs leading-relaxed text-slate-700 shadow-xs">
+                  <div className="flex items-center gap-2 text-brand-700 font-bold mb-1">
                     <Sparkles className="w-4 h-4" /> Adaptive Feedback:
                   </div>
                   {result.adaptiveRecommendation}
@@ -130,38 +129,38 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
 
               {/* Question Breakdown */}
               <div className="space-y-4">
-                <h5 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Detailed Explanations</h5>
+                <h5 className="text-xs font-bold uppercase tracking-wider text-slate-600">Question Review & Justifications</h5>
                 {result.questions?.map((item, idx) => (
                   <div key={idx} className={`p-4 rounded-xl border ${
                     item.isCorrect 
-                      ? 'bg-slate-950/50 border-emerald-500/30' 
-                      : 'bg-slate-950/50 border-rose-500/30'
+                      ? 'bg-emerald-50/40 border-emerald-200' 
+                      : 'bg-rose-50/40 border-rose-200'
                   }`}>
                     <div className="flex items-start gap-3">
                       {item.isCorrect ? (
-                        <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                       ) : (
-                        <XCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                        <XCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                       )}
                       <div className="space-y-2 flex-1">
-                        <p className="text-xs font-semibold text-white">{idx + 1}. {item.prompt}</p>
+                        <p className="text-xs font-bold text-slate-900">{idx + 1}. {item.prompt}</p>
                         
                         {item.codeSnippet && (
-                          <pre className="p-2.5 bg-slate-900 rounded-lg text-[11px] font-mono text-slate-300 overflow-x-auto border border-slate-800">
+                          <pre className="p-2.5 bg-slate-50 rounded-lg text-[11px] font-mono text-slate-800 overflow-x-auto border border-slate-200">
                             <code>{item.codeSnippet}</code>
                           </pre>
                         )}
 
                         <div className="text-xs space-y-1">
-                          <p className="text-emerald-400">
+                          <p className="text-emerald-700 font-medium">
                             <strong>Correct Answer: </strong>{item.correctAnswers?.join(', ')}
                           </p>
                           {!item.isCorrect && (
-                            <p className="text-rose-400">
+                            <p className="text-rose-700 font-medium">
                               <strong>Your Answer: </strong>{item.submittedAnswers?.join(', ') || 'None selected'}
                             </p>
                           )}
-                          <p className="text-slate-300 text-[11px] leading-relaxed pt-1">
+                          <p className="text-slate-600 text-xs leading-relaxed pt-1 border-t border-slate-200/60 mt-2">
                             <strong>Explanation: </strong>{item.explanation}
                           </p>
                         </div>
@@ -175,25 +174,25 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
             /* Active Question Form */
             <div className="space-y-6">
               {/* Progress Tracker */}
-              <div className="flex items-center justify-between text-xs text-slate-400">
+              <div className="flex items-center justify-between text-xs text-slate-600 font-medium">
                 <span>Question {currentIdx + 1} of {totalQuestions}</span>
-                <span className="font-mono">{quiz?.difficulty} Difficulty</span>
+                <span className="font-mono text-slate-500 uppercase">{quiz?.difficulty} Level</span>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-brand-500 h-full transition-all duration-300"
+                  className="bg-brand-600 h-full transition-all duration-300"
                   style={{ width: `${((currentIdx + 1) / totalQuestions) * 100}%` }}
                 ></div>
               </div>
 
               {/* Question Statement */}
               <div className="space-y-3">
-                <h4 className="text-base font-semibold text-white leading-snug">
+                <h4 className="text-base font-bold text-slate-900 leading-snug">
                   {currentQuestion?.prompt}
                 </h4>
 
                 {currentQuestion?.codeSnippet && (
-                  <pre className="p-4 bg-slate-950 rounded-xl text-xs font-mono text-brand-300 border border-slate-800 overflow-x-auto">
+                  <pre className="p-4 bg-slate-50 rounded-xl text-xs font-mono text-slate-800 border border-slate-200 overflow-x-auto">
                     <code>{currentQuestion.codeSnippet}</code>
                   </pre>
                 )}
@@ -209,13 +208,13 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
                       onClick={() => handleOptionToggle(currentQuestion.id, option)}
                       className={`w-full text-left p-3.5 rounded-xl border text-xs font-medium transition-all flex items-center justify-between ${
                         isSelected 
-                          ? 'bg-brand-500/15 border-brand-500 text-white shadow-lg shadow-brand-500/10' 
-                          : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:bg-slate-800/80 hover:border-slate-700'
+                          ? 'bg-brand-50 border-brand-600 text-brand-900 shadow-xs font-semibold' 
+                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
                       }`}
                     >
                       <span>{option}</span>
                       <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                        isSelected ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-700'
+                        isSelected ? 'border-brand-600 bg-brand-600 text-white' : 'border-slate-300 bg-white'
                       }`}>
                         {isSelected && <Check className="w-3 h-3" />}
                       </div>
@@ -228,7 +227,7 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
         </div>
 
         {/* Footer Navigation */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/70 flex items-center justify-between">
+        <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
           {result ? (
             <div className="flex items-center justify-between w-full">
               <button
@@ -237,13 +236,13 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
                   setCurrentIdx(0);
                   setSelectedAnswers({});
                 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold text-slate-700 transition-colors shadow-xs"
               >
                 <RotateCcw className="w-4 h-4" /> Try Again
               </button>
               <button
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold"
+                className="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-xs"
               >
                 Continue Learning
               </button>
@@ -253,7 +252,7 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
               <button
                 disabled={currentIdx === 0}
                 onClick={() => setCurrentIdx((prev) => Math.max(0, prev - 1))}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-xs font-semibold text-slate-300"
+                className="px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 disabled:opacity-40 text-xs font-semibold text-slate-700 transition-colors shadow-xs"
               >
                 Previous
               </button>
@@ -261,7 +260,7 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
               {currentIdx + 1 < totalQuestions ? (
                 <button
                   onClick={() => setCurrentIdx((prev) => Math.min(totalQuestions - 1, prev + 1))}
-                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold"
+                  className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-xs"
                 >
                   Next <ArrowRight className="w-4 h-4" />
                 </button>
@@ -269,7 +268,7 @@ export default function QuizModal({ quizId, isOpen, onClose, onQuizComplete }) {
                 <button
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="flex items-center gap-1.5 px-6 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white text-xs font-semibold shadow-lg shadow-brand-600/20"
+                  className="flex items-center gap-1.5 px-6 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white text-xs font-semibold shadow-xs"
                 >
                   {submitting ? 'Scoring...' : 'Submit Quiz'}
                 </button>

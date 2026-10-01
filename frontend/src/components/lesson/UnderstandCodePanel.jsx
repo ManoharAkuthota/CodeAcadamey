@@ -20,54 +20,54 @@ export default function UnderstandCodePanel({ codeExplanationJson, realWorldExam
     {
       title: '1. What Does This Code Do?',
       icon: Lightbulb,
-      color: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
+      color: 'text-amber-600 bg-amber-50 border-amber-200',
       content: explanation.whatDoesItDo || 'Executes the core algorithm and handles data manipulation.'
     },
     {
       title: '2. Why Is It Needed?',
       icon: Sparkles,
-      color: 'text-brand-400 bg-brand-500/10 border-brand-500/20',
+      color: 'text-brand-700 bg-brand-50 border-brand-200',
       content: explanation.whyNeeded || 'Essential for ensuring type safety, modularity, and maintainable state.'
     },
     {
       title: '3. How Does It Work?',
       icon: CheckCircle2,
-      color: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
+      color: 'text-cyan-700 bg-cyan-50 border-cyan-200',
       content: explanation.howItWorks || 'Evaluates expressions sequentially and executes scoped function calls.'
     },
     {
       title: '4. What Happens Internally?',
       icon: Cpu,
-      color: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
+      color: 'text-purple-700 bg-purple-50 border-purple-200',
       content: explanation.internalMechanics || 'Allocates stack memory frames and updates heap references in runtime memory.'
     },
     {
       title: '5. Real-World Usage',
       icon: Briefcase,
-      color: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+      color: 'text-blue-700 bg-blue-50 border-blue-200',
       content: realWorldExample || explanation.realWorldUsage || 'Applied in production microservices and enterprise backend layers.'
     },
     {
       title: '6. Common Mistakes to Avoid',
       icon: AlertTriangle,
-      color: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
+      color: 'text-rose-700 bg-rose-50 border-rose-200',
       content: commonMistakes || explanation.commonMistakes || 'Check null pointer references and array bound limits.'
     }
   ];
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-brand-500/10 border border-brand-500/20 text-brand-400">
+          <div className="p-2 rounded-lg bg-brand-50 border border-brand-200 text-brand-700">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-base text-white">Understand This Code</h3>
-            <p className="text-xs text-slate-400">Deep structural breakdown across 6 architectural dimensions</p>
+            <h3 className="font-bold text-base text-slate-900">Understand This Code</h3>
+            <p className="text-xs text-slate-500">Deep structural breakdown across 6 architectural dimensions</p>
           </div>
         </div>
-        <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded border border-brand-500/20">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded border border-brand-200 font-bold">
           Concept Deep Dive
         </span>
       </div>
@@ -78,15 +78,15 @@ export default function UnderstandCodePanel({ codeExplanationJson, realWorldExam
           return (
             <div 
               key={idx} 
-              className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-slate-700 transition-all space-y-2"
+              className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all shadow-xs space-y-2"
             >
               <div className="flex items-center gap-2">
                 <div className={`p-1.5 rounded-lg border ${aspect.color}`}>
                   <Icon className="w-4 h-4" />
                 </div>
-                <h4 className="font-semibold text-xs text-slate-200">{aspect.title}</h4>
+                <h4 className="font-bold text-xs text-slate-900">{aspect.title}</h4>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed pl-1">
+              <p className="text-xs text-slate-600 leading-relaxed pl-1">
                 {aspect.content}
               </p>
             </div>
@@ -95,10 +95,10 @@ export default function UnderstandCodePanel({ codeExplanationJson, realWorldExam
       </div>
 
       {bestPractices && (
-        <div className="p-3.5 bg-emerald-950/20 border border-emerald-500/20 rounded-xl text-xs text-emerald-300 flex items-start gap-2.5">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-start gap-2.5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-emerald-200">Industry Best Practice: </span>
+            <span className="font-bold text-emerald-800">Industry Best Practice: </span>
             {bestPractices}
           </div>
         </div>

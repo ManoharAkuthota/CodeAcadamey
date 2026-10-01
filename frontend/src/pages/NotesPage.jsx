@@ -115,23 +115,23 @@ export default function NotesPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-hidden">
+    <div className="h-[calc(100vh-4rem)] flex flex-col bg-slate-50 overflow-hidden">
       
       {/* Top Banner */}
-      <div className="border-b border-slate-800 bg-slate-900/60 px-6 py-3 flex items-center justify-between shrink-0">
+      <div className="border-b border-slate-200 bg-white px-6 py-3 flex items-center justify-between shrink-0 shadow-xs">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400">
+          <div className="p-2 rounded-xl bg-brand-50 border border-brand-200 text-brand-600">
             <FileText className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-white leading-tight">My Engineering Notebook</h1>
-            <p className="text-[11px] text-slate-400">Personal technical notes, syntax summaries, and algorithmic takeaways</p>
+            <h1 className="text-base font-bold text-slate-900 leading-tight">My Engineering Notebook</h1>
+            <p className="text-[11px] text-slate-500">Personal technical notes, syntax summaries, and algorithmic takeaways</p>
           </div>
         </div>
 
         <button
           onClick={handleStartNew}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-semibold text-white shadow-lg shadow-brand-600/20 transition-all"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Create Note
         </button>
@@ -141,28 +141,28 @@ export default function NotesPage() {
       <div className="flex-1 flex overflow-hidden">
         
         {/* Left Sidebar: Note List */}
-        <div className={`${(selectedNote || isNew) && !showMobileList ? 'hidden md:flex' : 'flex'} w-full md:w-80 lg:w-96 border-r border-slate-800 bg-slate-900/30 flex-col shrink-0`}>
+        <div className={`${(selectedNote || isNew) && !showMobileList ? 'hidden md:flex' : 'flex'} w-full md:w-80 lg:w-96 border-r border-slate-200 bg-white flex-col shrink-0`}>
           
           {/* Search Bar */}
-          <div className="p-3 border-b border-slate-800">
+          <div className="p-3 border-b border-slate-200">
             <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search notes..."
                 value={search}
                 onChange={handleSearchChange}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+                className="w-full bg-slate-50 border border-slate-300 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 transition-colors shadow-2xs"
               />
             </div>
           </div>
 
           {/* Notes Scrollable List */}
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-800/60">
+          <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
             {loading ? (
               <div className="p-4 space-y-3">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-16 rounded-lg bg-slate-800/40 animate-pulse"></div>
+                  <div key={i} className="h-16 rounded-lg bg-slate-100 animate-pulse"></div>
                 ))}
               </div>
             ) : notes.length > 0 ? (
@@ -172,22 +172,22 @@ export default function NotesPage() {
                   onClick={() => selectNote(n)}
                   className={`p-4 cursor-pointer transition-colors ${
                     selectedNote?.id === n.id
-                      ? 'bg-brand-500/10 border-l-4 border-brand-500'
-                      : 'hover:bg-slate-800/40'
+                      ? 'bg-brand-50 border-l-4 border-brand-600'
+                      : 'hover:bg-slate-50'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h4 className="text-xs font-bold text-white line-clamp-1">{n.title}</h4>
+                    <h4 className="text-xs font-bold text-slate-900 line-clamp-1">{n.title}</h4>
                     {n.topicTitle && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 shrink-0">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 shrink-0">
                         {n.topicTitle}
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                  <p className="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
                     {n.contentMarkdown.replace(/[#*`_]/g, '')}
                   </p>
-                  <div className="flex items-center gap-1.5 mt-2 text-[10px] font-mono text-slate-500">
+                  <div className="flex items-center gap-1.5 mt-2 text-[10px] font-mono text-slate-400">
                     <Clock className="w-3 h-3" />
                     <span>{n.updatedAt ? new Date(n.updatedAt).toLocaleDateString() : 'Recent'}</span>
                   </div>
@@ -202,31 +202,31 @@ export default function NotesPage() {
         </div>
 
         {/* Right Editor / Preview Workspace */}
-        <div className={`${!selectedNote && !isNew ? 'hidden md:flex' : (showMobileList ? 'hidden md:flex' : 'flex')} flex-1 flex-col bg-slate-950 overflow-hidden`}>
+        <div className={`${!selectedNote && !isNew ? 'hidden md:flex' : (showMobileList ? 'hidden md:flex' : 'flex')} flex-1 flex-col bg-slate-50 overflow-hidden`}>
           {selectedNote || isNew ? (
             <>
               {/* Note Action Bar */}
-              <div className="px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
+              <div className="px-4 sm:px-6 py-3 border-b border-slate-200 bg-white flex items-center justify-between">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <button
                     onClick={() => setShowMobileList(true)}
-                    className="md:hidden flex items-center gap-1 text-xs text-brand-400 font-semibold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 transition-colors"
+                    className="md:hidden flex items-center gap-1 text-xs text-brand-600 font-semibold px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 transition-colors"
                   >
                     ← Notes
                   </button>
-                  <div className="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800">
+                  <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                     <button
                       onClick={() => { setActiveTab('write'); setIsEditing(true); }}
-                      className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all ${
-                        activeTab === 'write' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                        activeTab === 'write' ? 'bg-white text-brand-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
                       }`}
                     >
                       <Edit3 className="w-3.5 h-3.5" /> Edit
                     </button>
                     <button
                       onClick={() => setActiveTab('preview')}
-                      className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all ${
-                        activeTab === 'preview' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                        activeTab === 'preview' ? 'bg-white text-brand-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
                       }`}
                     >
                       <Eye className="w-3.5 h-3.5" /> Preview
@@ -235,9 +235,9 @@ export default function NotesPage() {
 
                   {statusMsg && (
                     <span className={`text-xs flex items-center gap-1 ${
-                      statusMsg.type === 'success' ? 'text-emerald-400' : 'text-rose-400'
+                      statusMsg.type === 'success' ? 'text-emerald-700' : 'text-rose-700'
                     }`}>
-                      {statusMsg.type === 'success' ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                      {statusMsg.type === 'success' ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> : <AlertCircle className="w-3.5 h-3.5 text-rose-600" />}
                       {statusMsg.text}
                     </span>
                   )}
@@ -247,7 +247,7 @@ export default function NotesPage() {
                   {selectedNote && (
                     <button
                       onClick={() => handleDelete(selectedNote.id)}
-                      className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                       title="Delete note"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -256,7 +256,7 @@ export default function NotesPage() {
                   <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-xs font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
                   >
                     <Save className="w-3.5 h-3.5" /> {saving ? 'Saving...' : 'Save Note'}
                   </button>
@@ -270,7 +270,7 @@ export default function NotesPage() {
                   placeholder="Note Title..."
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="w-full bg-transparent text-2xl font-bold text-white placeholder-slate-600 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-800 pb-2 transition-colors"
+                  className="w-full bg-transparent text-2xl font-bold text-slate-900 placeholder-slate-400 focus:outline-none tracking-tight border-b border-transparent focus:border-slate-300 pb-2 transition-colors"
                 />
 
                 {activeTab === 'write' ? (
@@ -279,11 +279,11 @@ export default function NotesPage() {
                     placeholder="Enter your notes here using Markdown..."
                     value={formContent}
                     onChange={(e) => setFormContent(e.target.value)}
-                    className="w-full h-[calc(100%-4rem)] bg-slate-900/40 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brand-500 leading-relaxed resize-none transition-colors"
+                    className="w-full h-[calc(100%-4rem)] bg-white border border-slate-200 rounded-2xl p-4 text-xs font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-500 leading-relaxed resize-none transition-colors shadow-2xs"
                   ></textarea>
                 ) : (
-                  <div className="p-6 rounded-2xl bg-slate-900/30 border border-slate-800/80 min-h-[400px]">
-                    <div className="prose prose-invert max-w-none text-xs text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
+                  <div className="p-6 rounded-2xl bg-white border border-slate-200 min-h-[400px] shadow-2xs">
+                    <div className="prose max-w-none text-xs text-slate-800 leading-relaxed whitespace-pre-wrap font-sans">
                       {formContent}
                     </div>
                   </div>
@@ -292,16 +292,16 @@ export default function NotesPage() {
             </>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mb-3">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 mb-3 shadow-xs">
                 <FileText className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-bold text-white mb-1">No note selected</h3>
-              <p className="text-xs text-slate-400 max-w-xs mb-4">
+              <h3 className="text-sm font-bold text-slate-900 mb-1">No note selected</h3>
+              <p className="text-xs text-slate-500 max-w-xs mb-4">
                 Select an existing note from the sidebar or start a new technical journal entry.
               </p>
               <button
                 onClick={handleStartNew}
-                className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-semibold text-white shadow-lg shadow-brand-600/20 transition-all"
+                className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
               >
                 Create First Note
               </button>

@@ -102,17 +102,17 @@ export default function CodingPracticePage() {
   };
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-hidden">
+    <div className="h-[calc(100vh-4rem)] flex flex-col bg-slate-50 overflow-hidden">
       
       {/* Top Toolbar */}
-      <div className="border-b border-slate-800 bg-slate-900/60 px-4 py-2 flex items-center justify-between shrink-0">
+      <div className="border-b border-slate-200 bg-white px-4 py-2 flex items-center justify-between shrink-0 shadow-xs">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <Terminal className="w-4 h-4 text-brand-400" />
-            <span className="text-xs font-bold text-white">Monaco Coding Lab</span>
+            <Terminal className="w-4 h-4 text-brand-600" />
+            <span className="text-xs font-bold text-slate-900">Interactive Coding Lab</span>
           </div>
 
-          <div className="h-4 w-px bg-slate-800 hidden sm:block"></div>
+          <div className="h-4 w-px bg-slate-200 hidden sm:block"></div>
 
           {/* Problem Selector Dropdown */}
           <div className="relative">
@@ -126,7 +126,7 @@ export default function CodingPracticePage() {
                   if (p) selectProblem(p);
                 }
               }}
-              className="bg-slate-950 border border-slate-800 text-xs font-medium text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-brand-500"
+              className="bg-slate-50 border border-slate-300 text-xs font-medium text-slate-800 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-brand-500"
             >
               <optgroup label="Coding Challenges">
                 {problems.map((p) => (
@@ -149,7 +149,7 @@ export default function CodingPracticePage() {
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="bg-slate-950 border border-slate-800 text-xs font-mono text-brand-400 rounded-lg px-2.5 py-1.5 focus:outline-none"
+                className="bg-slate-50 border border-slate-300 text-xs font-mono text-brand-700 font-semibold rounded-lg px-2.5 py-1.5 focus:outline-none"
               >
                 <option value="java">Java 21</option>
                 <option value="python">Python 3</option>
@@ -161,15 +161,15 @@ export default function CodingPracticePage() {
               <button
                 onClick={handleRun}
                 disabled={running}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-xs font-semibold text-slate-200 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 disabled:opacity-50 text-xs font-semibold text-slate-700 border border-slate-300 transition-colors cursor-pointer"
               >
-                <Play className="w-3.5 h-3.5 fill-current text-emerald-400" /> Run Code
+                <Play className="w-3.5 h-3.5 fill-current text-emerald-600" /> Run Code
               </button>
 
               <button
                 onClick={handleSubmit}
                 disabled={running}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-xs font-semibold text-white shadow-lg shadow-brand-600/20 transition-all"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" /> Submit (+50 XP)
               </button>
@@ -177,7 +177,7 @@ export default function CodingPracticePage() {
           ) : (
             <button
               onClick={handleRunSql}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-semibold text-white shadow-lg shadow-cyan-600/20"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-xs font-semibold text-white shadow-xs cursor-pointer"
             >
               <Play className="w-3.5 h-3.5 fill-current" /> Execute SQL Query
             </button>
@@ -189,7 +189,7 @@ export default function CodingPracticePage() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         
         {/* LEFT PANE: Problem Description / SQL Schema */}
-        <div className="w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-900/40 p-4 sm:p-6 overflow-y-auto space-y-6 max-h-[45vh] lg:max-h-none">
+        <div className="w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-slate-200 bg-white p-4 sm:p-6 overflow-y-auto space-y-6 max-h-[45vh] lg:max-h-none">
           {!isSqlMode ? (
             <>
               {/* Problem Title & Badges */}
@@ -197,40 +197,40 @@ export default function CodingPracticePage() {
                 <div className="flex items-center gap-2">
                   <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded border ${
                     currentProblem?.difficulty === 'EASY' 
-                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
                       : currentProblem?.difficulty === 'MEDIUM' 
-                      ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
-                      : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                      ? 'bg-amber-50 text-amber-700 border-amber-200' 
+                      : 'bg-rose-50 text-rose-700 border-rose-200'
                   }`}>
                     {currentProblem?.difficulty || 'EASY'}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                     {currentProblem?.category}
                   </span>
                   {currentProblem?.isSolved && (
-                    <span className="text-[10px] font-semibold text-emerald-400 flex items-center gap-1">
+                    <span className="text-[10px] font-semibold text-emerald-600 flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Solved
                     </span>
                   )}
                 </div>
 
-                <h1 className="text-xl font-bold text-white tracking-tight">
+                <h1 className="text-xl font-bold text-slate-900 tracking-tight">
                   {currentProblem?.title}
                 </h1>
               </div>
 
               {/* Description */}
-              <div className="prose prose-invert text-xs text-slate-300 leading-relaxed whitespace-pre-line">
+              <div className="prose max-w-none text-xs text-slate-700 leading-relaxed whitespace-pre-line">
                 {currentProblem?.description}
               </div>
 
               {/* Input / Output Formats */}
               {currentProblem?.inputFormat && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-300">Input / Output Formats</h4>
-                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs font-mono space-y-1">
-                    <p className="text-slate-400">Input: <span className="text-slate-200">{currentProblem.inputFormat}</span></p>
-                    <p className="text-slate-400">Output: <span className="text-slate-200">{currentProblem.outputFormat}</span></p>
+                  <h4 className="text-xs font-bold text-slate-800">Input / Output Formats</h4>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono space-y-1">
+                    <p className="text-slate-500">Input: <span className="text-slate-800 font-semibold">{currentProblem.inputFormat}</span></p>
+                    <p className="text-slate-500">Output: <span className="text-slate-800 font-semibold">{currentProblem.outputFormat}</span></p>
                   </div>
                 </div>
               )}
@@ -238,8 +238,8 @@ export default function CodingPracticePage() {
               {/* Constraints */}
               {currentProblem?.constraints && (
                 <div className="space-y-1.5">
-                  <h4 className="text-xs font-bold text-slate-300">Constraints</h4>
-                  <pre className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] font-mono text-slate-400 whitespace-pre-line">
+                  <h4 className="text-xs font-bold text-slate-800">Constraints</h4>
+                  <pre className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-mono text-slate-700 whitespace-pre-line">
                     {currentProblem.constraints}
                   </pre>
                 </div>
@@ -247,10 +247,10 @@ export default function CodingPracticePage() {
 
               {/* Hints */}
               {currentProblem?.hints && (
-                <div className="p-3.5 rounded-xl bg-brand-950/20 border border-brand-500/20 text-xs text-brand-300 flex items-start gap-2">
-                  <Sparkles className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-xl bg-brand-50 border border-brand-200 text-xs text-brand-800 flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-brand-200">Algorithmic Hint: </strong>
+                    <strong className="text-brand-900">Algorithmic Hint: </strong>
                     {currentProblem.hints}
                   </div>
                 </div>
@@ -259,17 +259,17 @@ export default function CodingPracticePage() {
           ) : (
             /* Interactive SQL Sandbox Info */
             <div className="space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">
                 SQL Studio Sandbox
               </span>
-              <h2 className="text-xl font-bold text-white">Interactive MySQL Sandbox</h2>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Execute safe SQL queries against pre-seeded educational database schemas. Test joins, filtering, aggregations, and subqueries.
+              <h2 className="text-xl font-bold text-slate-900">Interactive MySQL Sandbox</h2>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Execute safe SQL queries against educational database schemas. Test joins, filtering, aggregations, and subqueries.
               </p>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-bold text-slate-300">Active Schema: `students` Table</h4>
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs text-slate-400 space-y-1">
+                <h4 className="text-xs font-bold text-slate-800">Active Schema: `students` Table</h4>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 font-mono text-xs text-slate-700 space-y-1">
                   <p>id: BIGINT PRIMARY KEY</p>
                   <p>full_name: VARCHAR(100)</p>
                   <p>email: VARCHAR(120)</p>
@@ -282,7 +282,7 @@ export default function CodingPracticePage() {
         </div>
 
         {/* RIGHT PANE: Monaco Code Editor + Output Drawer */}
-        <div className="w-full lg:w-1/2 flex flex-col bg-slate-950 flex-1 overflow-hidden">
+        <div className="w-full lg:w-1/2 flex flex-col bg-white flex-1 overflow-hidden">
           
           {/* Top Half: Code Editor */}
           <div className="flex-1 overflow-hidden relative">
@@ -295,22 +295,22 @@ export default function CodingPracticePage() {
           </div>
 
           {/* Bottom Half: Testcase & Execution Results Drawer */}
-          <div className="h-64 border-t border-slate-800 bg-slate-900/60 flex flex-col overflow-hidden">
+          <div className="h-64 border-t border-slate-200 bg-slate-50 flex flex-col overflow-hidden">
             
             {/* Drawer Tabs */}
-            <div className="flex items-center gap-4 px-4 py-2 border-b border-slate-800 text-xs">
+            <div className="flex items-center gap-4 px-4 py-2 border-b border-slate-200 text-xs bg-white">
               <button
                 onClick={() => setActiveTab('testcases')}
-                className={`font-semibold transition-colors ${
-                  activeTab === 'testcases' ? 'text-brand-400 border-b-2 border-brand-400 pb-1' : 'text-slate-400 hover:text-slate-200'
+                className={`font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'testcases' ? 'text-brand-600 border-b-2 border-brand-600 pb-1' : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
                 Visible Test Cases
               </button>
               <button
                 onClick={() => setActiveTab('result')}
-                className={`font-semibold transition-colors ${
-                  activeTab === 'result' ? 'text-brand-400 border-b-2 border-brand-400 pb-1' : 'text-slate-400 hover:text-slate-200'
+                className={`font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'result' ? 'text-brand-600 border-b-2 border-brand-600 pb-1' : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
                 Execution Result
@@ -323,23 +323,23 @@ export default function CodingPracticePage() {
                 /* SQL Result Table */
                 sqlResult ? (
                   <div className="space-y-3">
-                    <div className="text-[11px] text-emerald-400 flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Query executed in {sqlResult.executionTimeMs}ms. {sqlResult.affectedRows} rows returned.
+                    <div className="text-[11px] text-emerald-700 font-semibold flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Query executed in {sqlResult.executionTimeMs}ms. {sqlResult.affectedRows} rows returned.
                     </div>
-                    <div className="overflow-x-auto border border-slate-800 rounded-lg">
+                    <div className="overflow-x-auto border border-slate-200 rounded-lg bg-white shadow-xs">
                       <table className="w-full text-left border-collapse text-xs">
                         <thead>
-                          <tr className="bg-slate-800 text-slate-300">
+                          <tr className="bg-slate-100 text-slate-700">
                             {sqlResult.columns.map((c, i) => (
-                              <th key={i} className="p-2 border-b border-slate-700">{c}</th>
+                              <th key={i} className="p-2 border-b border-slate-200 font-semibold">{c}</th>
                             ))}
                           </tr>
                         </thead>
                         <tbody>
                           {sqlResult.rows.map((row, rIdx) => (
-                            <tr key={rIdx} className="border-b border-slate-800/80 hover:bg-slate-850">
+                            <tr key={rIdx} className="border-b border-slate-100 hover:bg-slate-50">
                               {sqlResult.columns.map((c, cIdx) => (
-                                <td key={cIdx} className="p-2 text-slate-300">{row[c]}</td>
+                                <td key={cIdx} className="p-2 text-slate-800">{row[c]}</td>
                               ))}
                             </tr>
                           ))}
@@ -354,10 +354,10 @@ export default function CodingPracticePage() {
                 /* Predefined Visible Test Cases */
                 <div className="space-y-3">
                   {currentProblem?.visibleTestCases?.map((tc, idx) => (
-                    <div key={idx} className="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase">Case {idx + 1}</span>
-                      <p className="text-slate-400">Input: <span className="text-white">{tc.input}</span></p>
-                      <p className="text-slate-400">Expected: <span className="text-emerald-400">{tc.expectedOutput}</span></p>
+                    <div key={idx} className="p-3 rounded-lg bg-white border border-slate-200 space-y-1 shadow-xs">
+                      <span className="text-[10px] text-slate-400 font-bold uppercase">Case {idx + 1}</span>
+                      <p className="text-slate-600">Input: <span className="text-slate-900 font-semibold">{tc.input}</span></p>
+                      <p className="text-slate-600">Expected: <span className="text-emerald-700 font-semibold">{tc.expectedOutput}</span></p>
                     </div>
                   ))}
                 </div>
@@ -366,36 +366,36 @@ export default function CodingPracticePage() {
                 result ? (
                   <div className="space-y-4">
                     <div className={`flex items-center gap-2 text-sm font-bold ${
-                      result.status === 'ACCEPTED' ? 'text-emerald-400' : 'text-rose-400'
+                      result.status === 'ACCEPTED' ? 'text-emerald-700' : 'text-rose-700'
                     }`}>
                       {result.status === 'ACCEPTED' ? (
                         <>
-                          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                           <span>Accepted! All {result.totalCount} Test Cases Passed</span>
                         </>
                       ) : (
                         <>
-                          <XCircle className="w-5 h-5 text-rose-400" />
+                          <XCircle className="w-5 h-5 text-rose-600" />
                           <span>Wrong Answer ({result.passedCount}/{result.totalCount} Passed)</span>
                         </>
                       )}
-                      <span className="text-xs text-slate-400 font-normal ml-auto flex items-center gap-1">
+                      <span className="text-xs text-slate-500 font-normal ml-auto flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" /> {result.executionTimeMs} ms
                       </span>
                     </div>
 
                     <div className="space-y-2">
                       {result.testCaseResults?.map((tc) => (
-                        <div key={tc.caseNumber} className={`p-2.5 rounded-lg border text-xs ${
-                          tc.passed ? 'bg-slate-950 border-emerald-500/30 text-emerald-300' : 'bg-slate-950 border-rose-500/30 text-rose-300'
+                        <div key={tc.caseNumber} className={`p-2.5 rounded-lg border text-xs shadow-xs ${
+                          tc.passed ? 'bg-emerald-50/60 border-emerald-200 text-emerald-800' : 'bg-rose-50/60 border-rose-200 text-rose-800'
                         }`}>
                           <div className="flex items-center justify-between font-bold text-[11px] mb-1">
                             <span>Test Case {tc.caseNumber}</span>
-                            <span>{tc.passed ? 'PASSED' : 'FAILED'}</span>
+                            <span className={tc.passed ? 'text-emerald-700' : 'text-rose-700'}>{tc.passed ? 'PASSED' : 'FAILED'}</span>
                           </div>
-                          <p className="text-slate-400">Input: <span className="text-white">{tc.input}</span></p>
-                          <p className="text-slate-400">Expected: <span className="text-emerald-400">{tc.expectedOutput}</span></p>
-                          <p className="text-slate-400">Actual: <span className="text-white">{tc.actualOutput}</span></p>
+                          <p className="text-slate-600">Input: <span className="text-slate-900 font-semibold">{tc.input}</span></p>
+                          <p className="text-slate-600">Expected: <span className="text-emerald-700 font-semibold">{tc.expectedOutput}</span></p>
+                          <p className="text-slate-600">Actual: <span className="text-slate-900 font-semibold">{tc.actualOutput}</span></p>
                         </div>
                       ))}
                     </div>

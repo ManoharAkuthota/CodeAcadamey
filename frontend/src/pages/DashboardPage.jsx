@@ -46,29 +46,29 @@ export default function DashboardPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       
       {/* Welcome & Resume Hero Banner */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 shadow-2xl overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-brand-50/70 via-white to-emerald-50/40 border border-brand-200/80 shadow-sm overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 border border-brand-200 text-brand-800 text-xs font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Developer Level: {data?.currentLevel || 'Beginner'}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Welcome back, {user?.fullName || 'Developer'}! 👋
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Keep your momentum going. You have accumulated <strong className="text-brand-400 font-semibold">{data?.totalXp || 0} XP</strong>.
-            Next milestone at <strong className="text-white font-semibold">{data?.nextLevelXp || 250} XP</strong>.
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Keep your momentum going. You have accumulated <strong className="text-brand-600 font-semibold">{data?.totalXp || 0} XP</strong>.
+            Next milestone at <strong className="text-slate-900 font-semibold">{data?.nextLevelXp || 250} XP</strong>.
           </p>
 
           {/* XP Progress Bar */}
           <div className="pt-2 w-full max-w-md">
-            <div className="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+            <div className="flex justify-between text-[11px] font-mono text-slate-500 mb-1">
               <span>{data?.totalXp || 0} XP</span>
               <span>Target: {data?.nextLevelXp || 250} XP</span>
             </div>
-            <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-brand-500 to-emerald-400 transition-all duration-500"
+                className="h-full bg-gradient-to-r from-brand-600 to-emerald-500 transition-all duration-500"
                 style={{ width: `${Math.min(100, ((data?.totalXp || 0) / (data?.nextLevelXp || 250)) * 100)}%` }}
               ></div>
             </div>
@@ -77,19 +77,19 @@ export default function DashboardPage() {
 
         {/* Quick Resume Learning Action */}
         {data?.resumeTopic && (
-          <div className="shrink-0 p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3 w-full md:w-auto">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+          <div className="shrink-0 p-5 rounded-2xl bg-white border border-slate-200 space-y-3 w-full md:w-auto shadow-sm">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
               Current Active Topic
             </span>
-            <p className="text-sm font-bold text-white max-w-xs truncate">
+            <p className="text-sm font-bold text-slate-900 max-w-xs truncate">
               {data.resumeTopic.topicTitle}
             </p>
-            <p className="text-xs text-brand-400 font-medium">
+            <p className="text-xs text-brand-600 font-medium">
               {data.resumeTopic.courseTitle}
             </p>
             <Link
               to={data.resumeTopic.lessonId ? `/lesson/${data.resumeTopic.lessonId}` : `/course/${data.resumeTopic.courseId}`}
-              className="w-full py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-brand-600/20 transition-all"
+              className="w-full py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <Play className="w-3.5 h-3.5 fill-white" /> Resume Learning
             </Link>
@@ -104,17 +104,17 @@ export default function DashboardPage() {
           return (
             <div 
               key={idx}
-              className="p-4 rounded-2xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between space-y-2 hover:border-slate-700 transition-all"
+              className="p-4 rounded-2xl bg-white border border-slate-200 flex flex-col justify-between space-y-2 hover:border-brand-300 shadow-sm transition-all"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-semibold text-slate-400 tracking-wider">
+                <span className="text-[10px] font-semibold text-slate-500 tracking-wider">
                   {card.label}
                 </span>
                 <div className={`p-1.5 rounded-lg border ${card.color}`}>
                   <Icon className="w-3.5 h-3.5" />
                 </div>
               </div>
-              <p className="text-xl font-bold text-white">{card.value}</p>
+              <p className="text-xl font-bold text-slate-900">{card.value}</p>
             </div>
           );
         })}
@@ -124,47 +124,47 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Weekly Learning Activity Chart */}
-        <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <div className="lg:col-span-2 p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <BarChart2 className="w-4 h-4 text-brand-400" /> Weekly Learning Activity
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <BarChart2 className="w-4 h-4 text-brand-600" /> Weekly Learning Activity
               </h3>
-              <p className="text-xs text-slate-400">XP points earned and lessons completed over the past 7 days</p>
+              <p className="text-xs text-slate-500">XP points earned and lessons completed over the past 7 days</p>
             </div>
           </div>
 
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data?.weeklyActivity || []}>
-                <XAxis dataKey="day" stroke="#64748b" fontSize={11} tickLine={false} />
-                <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
+                <XAxis dataKey="day" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', fontSize: '12px' }}
-                  labelStyle={{ color: '#fff' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', fontSize: '12px', color: '#0f172a', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  labelStyle={{ color: '#0f172a', fontWeight: 'bold' }}
                 />
-                <Bar dataKey="xp" fill="#22c55e" radius={[4, 4, 0, 0]} name="XP Earned" />
+                <Bar dataKey="xp" fill="#16a34a" radius={[4, 4, 0, 0]} name="XP Earned" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Skill Proficiency Radar Chart */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
           <div>
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-cyan-400" /> Skill Distribution
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-brand-600" /> Skill Distribution
             </h3>
-            <p className="text-xs text-slate-400">Technical competency map</p>
+            <p className="text-xs text-slate-500">Technical competency map</p>
           </div>
 
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={data?.skillDistribution || []}>
-                <PolarGrid stroke="#334155" />
-                <PolarAngleAxis dataKey="subject" stroke="#94a3b8" fontSize={10} />
-                <PolarRadiusAxis stroke="#475569" fontSize={9} />
-                <Radar name="Skill Proficiency" dataKey="proficiency" stroke="#06b6d4" fill="#06b6d4" fillOpacity={0.4} />
+                <PolarGrid stroke="#e2e8f0" />
+                <PolarAngleAxis dataKey="subject" stroke="#64748b" fontSize={10} />
+                <PolarRadiusAxis stroke="#cbd5e1" fontSize={9} />
+                <Radar name="Skill Proficiency" dataKey="proficiency" stroke="#16a34a" fill="#16a34a" fillOpacity={0.3} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -175,24 +175,24 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Language Progress Bars */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <Layers className="w-4 h-4 text-emerald-400" /> Language Progress
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <Layers className="w-4 h-4 text-emerald-600" /> Language Progress
           </h3>
 
           <div className="space-y-3">
             {data?.languageProgress?.map((lang, idx) => (
               <div key={idx} className="space-y-1">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-slate-200">{lang.language}</span>
-                  <span className="font-mono text-slate-400">{lang.progressPercentage}%</span>
+                  <span className="font-semibold text-slate-800">{lang.language}</span>
+                  <span className="font-mono text-slate-500">{lang.progressPercentage}%</span>
                 </div>
-                <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                   <div 
                     className="h-full rounded-full transition-all duration-500"
                     style={{ 
                       width: `${lang.progressPercentage}%`, 
-                      backgroundColor: lang.color || '#22c55e' 
+                      backgroundColor: lang.color || '#16a34a' 
                     }}
                   ></div>
                 </div>
@@ -202,12 +202,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Unlocked Badges Showcase */}
-        <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-400" /> Badges & Achievements
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-500" /> Badges & Achievements
             </h3>
-            <Link to="/achievements" className="text-xs text-brand-400 hover:underline">
+            <Link to="/achievements" className="text-xs text-brand-600 font-semibold hover:underline">
               View All
             </Link>
           </div>
@@ -215,18 +215,18 @@ export default function DashboardPage() {
           <div className="grid grid-cols-2 gap-3">
             {data?.recentAchievements?.length > 0 ? (
               data.recentAchievements.map((badge, idx) => (
-                <div key={idx} className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                    <Star className="w-5 h-5 fill-amber-400" />
+                <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
+                    <Star className="w-5 h-5 fill-amber-500" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-white truncate">{badge.title}</p>
-                    <p className="text-[11px] text-slate-400 truncate">+{badge.xpReward} XP</p>
+                    <p className="text-xs font-bold text-slate-900 truncate">{badge.title}</p>
+                    <p className="text-[11px] text-slate-500 truncate">+{badge.xpReward} XP</p>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="col-span-2 py-8 text-center text-xs text-slate-400">
+              <div className="col-span-2 py-8 text-center text-xs text-slate-500">
                 Complete your first lesson or quiz to earn achievements!
               </div>
             )}
