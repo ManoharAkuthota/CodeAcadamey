@@ -1,0 +1,383 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { 
+  ChevronLeft, ChevronRight, CheckCircle2, Bookmark, 
+  HelpCircle, Sparkles, Layers, FileText, Share2, 
+  BookOpen, Terminal, Check, Award, ArrowLeft
+} from 'lucide-react';
+import { lessonService } from '../services/lessonService';
+import { courseService } from '../services/courseService';
+import { bookmarkService, noteService } from '../services/platformServices';
+import CodeSnippetBlock from '../components/lesson/CodeSnippetBlock';
+import UnderstandCodePanel from '../components/lesson/UnderstandCodePanel';
+import HowItWorksModal from '../components/lesson/HowItWorksModal';
+import QuizModal from '../components/quiz/QuizModal';
+import { useAuth } from '../context/AuthContext';
+
+export default function LessonPage() {
+  const { lessonId } = useParams();
+  const [lesson, setLesson] = useState(null);
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [noteContent, setNoteContent] = useState('');
+  const [noteSaved, setNoteSaved] = useState(false);
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const { refreshUserProfile } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (lessonId) {
+      setLoading(true);
+      lessonService.getLessonById(lessonId)
+        .then((res) => {
+          if (res.data) {
+            setLesson(res.data);
+            setIsCompleted(res.data.isCompleted);
+            setIsBookmarked(res.data.isBookmarked);
+
+            // Fetch course details for left curriculum sidebar
+            if (res.data.courseId) {
+              courseService.getCourseById(res.data.courseId)
+                .then((cRes) => setCourse(cRes.data))
+                .catch(() => {});
+            }
+
+            // Fetch user personal note for topic
+            if (res.data.topicId) {
+              noteService.getNoteByTopic(res.data.topicId)
+                .then((nRes) => {
+                  if (nRes.data?.contentMarkdown) {
+                    setNoteContent(nRes.data.contentMarkdown);
+                  } else {
+                    setNoteContent('');
+                  }
+                })
+                .catch(() => {});
+            }
+          }
+        })
+        .catch((err) => console.error('Failed to load lesson', err))
+        .finally(() => setLoading(false));
+    }
+  }, [lessonId]);
+
+  const handleToggleComplete = async () => {
+    if (!lesson) return;
+    try {
+      await lessonService.completeTopic(lesson.topicId);
+      setIsCompleted(true);
+      refreshUserProfile();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleToggleBookmark = async () => {
+    if (!lesson) return;
+    try {
+      const added = await bookmarkService.toggleBookmark({
+        itemType: 'LESSON',
+        itemId: lesson.id,
+        title: lesson.title,
+        pathUrl: `/lesson/${lesson.id}`,
+      });
+      setIsBookmarked(added.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleSaveNote = async () => {
+    if (!lesson || !noteContent.trim()) return;
+    try {
+      await noteService.saveNote({
+        topicId: lesson.topicId,
+        title: `Notes on ${lesson.topicTitle || lesson.title}`,
+        contentMarkdown: noteContent,
+      });
+      setNoteSaved(true);
+      setTimeout(() => setNoteSaved(false), 2000);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <div className="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!lesson) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center p-4">
+        <p className="text-slate-400 mb-4">Lesson content not found.</p>
+        <Link to="/courses" className="px-4 py-2 bg-brand-600 text-white rounded-lg text-xs font-semibold">
+          Browse Courses
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col">
+      
+      {/* Top Breadcrumb Bar */}
+      <div className="border-b border-slate-800 bg-slate-900/60 px-4 py-2.5 flex items-center justify-between text-xs text-slate-400">
+        <div className="flex items-center gap-2 truncate">
+          <Link to={`/course/${lesson.courseId}`} className="hover:text-white flex items-center gap-1">
+            <ArrowLeft className="w-3.5 h-3.5" /> {lesson.courseTitle}
+          </Link>
+          <span>/</span>
+          <span className="text-slate-300 font-medium truncate">{lesson.moduleTitle}</span>
+          <span>/</span>
+          <span className="text-brand-400 font-semibold truncate">{lesson.topicTitle}</span>
+        </div>
+
+        {/* Action Pills */}
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => setIsHowItWorksOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-semibold transition-colors"
+          >
+            <Layers className="w-3.5 h-3.5" /> How This Platform Works
+          </button>
+        </div>
+      </div>
+
+      {/* Main 3-Pane Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        
+        {/* LEFT PANE: Curriculum Sidebar */}
+        <aside className="w-72 border-r border-slate-800 bg-slate-900/40 hidden lg:flex flex-col shrink-0 overflow-y-auto p-4 space-y-6">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Curriculum</span>
+            <h4 className="font-bold text-white text-sm mt-0.5">{course?.title}</h4>
+          </div>
+
+          <div className="space-y-4">
+            {course?.modules?.map((mod) => (
+              <div key={mod.id} className="space-y-1.5">
+                <span className="text-xs font-bold text-slate-300 block">{mod.title}</span>
+                <div className="space-y-1 pl-2 border-l border-slate-800">
+                  {mod.topics?.map((top) => {
+                    const isCurrent = top.id === lesson.topicId;
+                    return (
+                      <Link
+                        key={top.id}
+                        to={top.lessonId ? `/lesson/${top.lessonId}` : `/course/${course.id}`}
+                        className={`block p-2 rounded-lg text-xs transition-colors flex items-center justify-between ${
+                          isCurrent 
+                            ? 'bg-brand-500/15 text-brand-300 font-semibold border border-brand-500/30' 
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <span className="truncate pr-2">{top.title}</span>
+                        {top.isCompleted && (
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        {/* CENTER PANE: Lesson Concept & Code Content */}
+        <main className="flex-1 overflow-y-auto p-6 lg:p-10 space-y-8 max-w-4xl mx-auto">
+          
+          {/* Topic Title */}
+          <div className="space-y-2">
+            <span className="text-xs font-mono font-medium text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded border border-brand-500/20">
+              {lesson.codeLanguage?.toUpperCase() || 'PROGRAMMING'} LESSON
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              {lesson.title}
+            </h1>
+          </div>
+
+          {/* Formatted Markdown Explanation */}
+          <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed whitespace-pre-line space-y-4">
+            {lesson.contentMarkdown}
+          </div>
+
+          {/* Interactive Code Snippet */}
+          {lesson.codeSnippet && (
+            <CodeSnippetBlock 
+              code={lesson.codeSnippet} 
+              language={lesson.codeLanguage || 'java'} 
+              title={`${lesson.topicTitle || 'Example'}.${lesson.codeLanguage || 'java'}`}
+            />
+          )}
+
+          {/* Understand This Code 6-Aspect Panel */}
+          <UnderstandCodePanel 
+            codeExplanationJson={lesson.codeExplanationJson}
+            realWorldExample={lesson.realWorldExample}
+            commonMistakes={lesson.commonMistakes}
+            bestPractices={lesson.bestPractices}
+          />
+
+          {/* Practice Exercise */}
+          {lesson.practiceExercise && (
+            <div className="p-5 rounded-2xl bg-amber-950/20 border border-amber-500/20 text-slate-200 space-y-2">
+              <div className="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                <Terminal className="w-4 h-4" /> Practice Challenge for You:
+              </div>
+              <p className="text-xs leading-relaxed text-amber-100/90 font-mono">
+                {lesson.practiceExercise}
+              </p>
+            </div>
+          )}
+
+          {/* Navigation Controls */}
+          <div className="pt-6 border-t border-slate-800 flex items-center justify-between">
+            {lesson.prevTopicId ? (
+              <button
+                onClick={() => navigate(`/lesson/topic/${lesson.prevTopicId}`)}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" /> Previous Topic
+              </button>
+            ) : <div />}
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleToggleComplete}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  isCompleted 
+                    ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' 
+                    : 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/20'
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                {isCompleted ? 'Topic Completed' : 'Mark Topic Complete (+10 XP)'}
+              </button>
+
+              {lesson.quizId && (
+                <button
+                  onClick={() => setIsQuizOpen(true)}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold shadow-lg shadow-purple-600/20 transition-all"
+                >
+                  <Award className="w-4 h-4" /> Take Topic Quiz
+                </button>
+              )}
+
+              {lesson.nextTopicId && (
+                <button
+                  onClick={() => navigate(`/lesson/topic/${lesson.nextTopicId}`)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-colors"
+                >
+                  Next Topic <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+        </main>
+
+        {/* RIGHT PANE: Progress, Notes & Quiz */}
+        <aside className="w-80 border-l border-slate-800 bg-slate-900/40 hidden xl:flex flex-col shrink-0 overflow-y-auto p-5 space-y-6">
+          
+          {/* Status & Bookmarks */}
+          <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Lesson Status</span>
+            
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-slate-300">Completion:</span>
+              <span className={`text-xs font-bold ${isCompleted ? 'text-emerald-400' : 'text-slate-400'}`}>
+                {isCompleted ? 'Completed' : 'In Progress'}
+              </span>
+            </div>
+
+            <button
+              onClick={handleToggleBookmark}
+              className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-colors ${
+                isBookmarked 
+                  ? 'bg-amber-500/10 border-amber-500/30 text-amber-300' 
+                  : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+              {isBookmarked ? 'Bookmarked' : 'Bookmark Lesson'}
+            </button>
+          </div>
+
+          {/* Quick Quiz Card */}
+          {lesson.quizId ? (
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30 space-y-3">
+              <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
+                <Award className="w-4 h-4" /> Topic Quiz
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Test your understanding with code output predictions and multi-choice questions.
+              </p>
+              <button
+                onClick={() => setIsQuizOpen(true)}
+                className="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold shadow-lg shadow-purple-600/20 transition-all flex items-center justify-center gap-2"
+              >
+                Launch Quiz <Award className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 text-xs text-slate-400 text-center">
+              No quiz attached to this introductory topic.
+            </div>
+          )}
+
+          {/* Personal Student Notes Editor */}
+          <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 flex-1 flex flex-col">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-blue-400" /> My Notes
+              </span>
+              {noteSaved && (
+                <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                  <Check className="w-3 h-3" /> Saved!
+                </span>
+              )}
+            </div>
+
+            <textarea
+              value={noteContent}
+              onChange={(e) => setNoteContent(e.target.value)}
+              placeholder="Jot down personal takeaways, syntax reminders, or questions..."
+              className="w-full flex-1 min-h-[140px] p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 resize-none font-sans leading-relaxed"
+            />
+
+            <button
+              onClick={handleSaveNote}
+              className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-colors"
+            >
+              Save Note
+            </button>
+          </div>
+        </aside>
+      </div>
+
+      {/* "How This Platform Works" Modal */}
+      <HowItWorksModal
+        isOpen={isHowItWorksOpen}
+        onClose={() => setIsHowItWorksOpen(false)}
+        topicTitle={lesson.topicTitle}
+        currentFeature="Lesson & Topic Completion"
+      />
+
+      {/* Topic Quiz Modal */}
+      {lesson.quizId && (
+        <QuizModal
+          isOpen={isQuizOpen}
+          onClose={() => setIsQuizOpen(false)}
+          quizId={lesson.quizId}
+          onQuizComplete={() => setIsCompleted(true)}
+        />
+      )}
+    </div>
+  );
+}

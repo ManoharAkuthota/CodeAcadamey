@@ -1,0 +1,28 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# Backend Build & Dependencies
+backend/target/
+backend/*.log
+backend/.flattened-pom.xml
+
+# Frontend Dependencies & Build Output
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
