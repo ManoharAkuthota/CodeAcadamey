@@ -11,6 +11,9 @@ import { bookmarkService, noteService } from '../services/platformServices';
 import CodeSnippetBlock from '../components/lesson/CodeSnippetBlock';
 import UnderstandCodePanel from '../components/lesson/UnderstandCodePanel';
 import HowItWorksModal from '../components/lesson/HowItWorksModal';
+import AnalogyModeCard from '../components/lesson/AnalogyModeCard';
+import InteractiveExecutionStepper from '../components/lesson/InteractiveExecutionStepper';
+import InlineMicroCheck from '../components/lesson/InlineMicroCheck';
 import QuizModal from '../components/quiz/QuizModal';
 import { useAuth } from '../context/AuthContext';
 
@@ -19,6 +22,7 @@ export default function LessonPage() {
   const [lesson, setLesson] = useState(null);
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [learningMode, setLearningMode] = useState('analogy');
   const [isCompleted, setIsCompleted] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [noteContent, setNoteContent] = useState('');
@@ -201,17 +205,34 @@ export default function LessonPage() {
             </h1>
           </div>
 
+          {/* Analogy & Intuitive Learning Mode Card */}
+          <AnalogyModeCard
+            mode={learningMode}
+            onToggleMode={setLearningMode}
+            analogyData={lesson.analogy}
+            technicalSummary={lesson.contentMarkdown?.split('\n\n')[0]}
+          />
+
           {/* Formatted Markdown Explanation */}
           <div className="prose max-w-none text-slate-700 text-sm leading-relaxed whitespace-pre-line space-y-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
             {lesson.contentMarkdown}
           </div>
 
-          {/* Interactive Code Snippet */}
+          {/* Interactive Code Snippet with Run/Sandbox */}
           {lesson.codeSnippet && (
             <CodeSnippetBlock 
               code={lesson.codeSnippet} 
               language={lesson.codeLanguage || 'java'} 
               title={`${lesson.topicTitle || 'Example'}.${lesson.codeLanguage || 'java'}`}
+            />
+          )}
+
+          {/* Interactive Step-by-Step Code Execution Stepper */}
+          {lesson.executionSteps && lesson.executionSteps.length > 0 && (
+            <InteractiveExecutionStepper
+              steps={lesson.executionSteps}
+              codeSnippet={lesson.codeSnippet}
+              language={lesson.codeLanguage || 'java'}
             />
           )}
 
@@ -223,7 +244,30 @@ export default function LessonPage() {
             bestPractices={lesson.bestPractices}
           />
 
-          {/* Practice Exercise */}
+          {/* Inline Micro Knowledge Check */}
+          {lesson.microCheck && (
+            <InlineMicroCheck questionData={lesson.microCheck} />
+          )}
+
+          {/* Key Takeaways & Interview Retention */}
+          {lesson.keyTakeaways && lesson.keyTakeaways.length > 0 && (
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+              <div className="flex items-center gap-2 text-slate-900 font-bold text-xs uppercase tracking-wider">
+                <BookOpen className="w-4 h-4 text-brand-600" />
+                <span>Crucial Takeaways for Coding Interviews</span>
+              </div>
+              <ul className="space-y-2 text-xs text-slate-700">
+                {lesson.keyTakeaways.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Practice Challenge */}
           {lesson.practiceExercise && (
             <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-slate-800 space-y-2">
               <div className="flex items-center gap-2 text-amber-700 font-bold text-xs uppercase tracking-wider">

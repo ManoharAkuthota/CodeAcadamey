@@ -24,29 +24,65 @@ export const quizService = {
     return { success: true, data: found };
   },
 
-  submitQuiz: async (id, answers) => {
+  submitQuiz: async (id, answers = {}) => {
     try {
-      return await api.post(`/quizzes/${id}/submit`, { answers });
+      const res = await api.post(`/quizzes/${id}/submit`, { answers });
+      if (res?.data) return res;
     } catch (e) {
-      return {
-        success: true,
-        data: {
-          quizId: id,
-          score: 100,
-          passed: true,
-          xpEarned: 50,
-          results: [
-            {
-              id: 1,
-              prompt: 'What is the role of the Java Virtual Machine (JVM)?',
-              isCorrect: true,
-              submittedAnswers: ['It executes platform-independent bytecode (.class) on the host operating system'],
-              correctAnswers: ['It executes platform-independent bytecode (.class) on the host operating system'],
-              explanation: 'The JVM provides Write Once, Run Anywhere (WORA) capability.'
-            }
-          ]
-        }
-      };
+      console.warn(`Backend unavailable for submitQuiz ${id}, using local evaluator:`, e?.message);
     }
+
+    const quiz = DEFAULT_QUIZZES[id] || DEFAULT_QUIZZES[1001];
+    const questions = quiz.questions || [];
+    let score = 0;
+
+    const evaluatedQuestions = questions.map((q) => {
+      const userSelected = answers[q.id] || [];
+      const correctAnswers = q.correctAnswers || [];
+      const isCorrect = userSelected.length > 0 && 
+        userSelected.every(ans => correctAnswers.includes(ans)) &&
+        correctAnswers.every(ans => userSelected.includes(ans));
+
+      if (isCorrect) score += 1;
+
+      return {
+        id: q.id,
+        prompt: q.prompt,
+        codeSnippet: q.codeSnippet,
+        conceptTag: q.conceptTag || 'Core Syntax',
+        isCorrect,
+        submittedAnswers: userSelected,
+        correctAnswers: q.correctAnswers,
+        explanation: q.explanation,
+        optionJustifications: q.optionJustifications || (q.options || []).map(opt => ({
+          option: opt,
+          isCorrect: correctAnswers.includes(opt),
+          reason: correctAnswers.includes(opt) 
+            ? 'Matches language specification and runtime design.' 
+            : 'Incorrect: contradicts runtime execution semantics or type requirements.'
+        }))
+      };
+    });
+
+    const totalQuestions = questions.length;
+    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 100;
+    const passed = percentage >= 70;
+
+    return {
+      success: true,
+      data: {
+        quizId: id,
+        title: quiz.title,
+        score,
+        totalQuestions,
+        percentage,
+        passed,
+        xpEarned: passed ? 50 : 15,
+        adaptiveRecommendation: passed
+          ? '🌟 Excellent job! You have demonstrated a solid grasp of this topic. Ready to advance to the next module!'
+          : '📚 Good effort! Focus on reviewing the distractor explanations above, particularly the memory and typing rules, then try once more.',
+        questions: evaluatedQuestions
+      }
+    };
   },
 };

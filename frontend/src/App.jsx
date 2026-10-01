@@ -46,11 +46,19 @@ export default function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                {/* Course & Lesson Routes - Instant Access */}
                 <Route path="/courses" element={<CoursesPage />} />
                 <Route path="/courses/:courseId" element={<CourseDetailPage />} />
                 <Route path="/course/:courseId" element={<CourseDetailPage />} />
                 <Route path="/courses/slug/:slug" element={<CourseDetailPage />} />
                 <Route path="/course/slug/:slug" element={<CourseDetailPage />} />
+                <Route path="/lessons/:topicId" element={<LessonPage />} />
+                <Route path="/lesson/:topicId" element={<LessonPage />} />
+                <Route path="/lesson/topic/:topicId" element={<LessonPage />} />
+                <Route path="/lessons/topic/:topicId" element={<LessonPage />} />
+                <Route path="/course/:courseId/lesson/:topicId" element={<LessonPage />} />
+                <Route path="/courses/:courseId/lesson/:topicId" element={<LessonPage />} />
+
                 <Route path="/languages" element={<LanguagesPage />} />
                 <Route path="/languages/:slug" element={<LanguageDetailPage />} />
                 <Route path="/frameworks" element={<FrameworksPage />} />
@@ -68,22 +76,6 @@ export default function App() {
                   element={
                     <ProtectedRoute>
                       <DashboardPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/lessons/:topicId"
-                  element={
-                    <ProtectedRoute>
-                      <LessonPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/lesson/:topicId"
-                  element={
-                    <ProtectedRoute>
-                      <LessonPage />
                     </ProtectedRoute>
                   }
                 />

@@ -137,21 +137,20 @@ export default function CourseDetailPage() {
                 {isExpanded && (
                   <div className="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50/40">
                     {module.topics?.map((topic) => (
-                      <div 
+                      <Link 
                         key={topic.id}
-                        className="p-4 sm:px-6 flex items-center justify-between gap-4 text-xs hover:bg-slate-50 transition-colors"
+                        to={`/lesson/${topic.id}`}
+                        className="p-4 sm:px-6 flex items-center justify-between gap-4 text-xs hover:bg-brand-50/50 transition-colors group cursor-pointer"
                       >
                         <div className="flex items-start gap-3 min-w-0">
-                          {topic.isCompleted ? (
+                          {topic.completed || topic.isCompleted ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                          ) : topic.isLocked ? (
-                            <Lock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
                           ) : (
-                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 mt-0.5" />
+                            <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0 mt-0.5 group-hover:border-brand-500" />
                           )}
 
                           <div>
-                            <p className={`font-semibold ${topic.isLocked ? 'text-slate-400' : 'text-slate-800'}`}>
+                            <p className="font-semibold text-slate-800 group-hover:text-brand-700 transition-colors">
                               {topic.title}
                             </p>
                             {topic.summary && (
@@ -159,31 +158,17 @@ export default function CourseDetailPage() {
                                 {topic.summary}
                               </p>
                             )}
-                            {topic.isLocked && topic.prerequisiteTopicTitle && (
-                              <p className="text-[10px] text-amber-600 font-mono mt-0.5">
-                                Locked: Complete "{topic.prerequisiteTopicTitle}" first
-                              </p>
-                            )}
                           </div>
                         </div>
 
-                        {/* Navigation link if unlocked */}
+                        {/* Action Pill */}
                         <div className="shrink-0">
-                          {topic.isLocked ? (
-                            <span className="text-[11px] text-slate-400 font-mono px-2 py-1 rounded bg-slate-100 border border-slate-200">
-                              Locked
-                            </span>
-                          ) : (
-                            <Link
-                              to={topic.lessonId ? `/lesson/${topic.lessonId}` : `/lesson/${topic.id}`}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold border border-brand-200 transition-colors"
-                            >
-                              <span>{topic.isCompleted ? 'Review' : 'Start'}</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
-                          )}
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 group-hover:bg-brand-600 group-hover:text-white text-brand-700 text-xs font-semibold border border-brand-200 transition-all">
+                            <span>{topic.completed || topic.isCompleted ? 'Review Lesson' : 'Start Lesson'}</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 )}

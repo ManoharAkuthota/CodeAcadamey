@@ -1,5 +1,5 @@
 import api from './api';
-import { DEFAULT_LESSONS } from '../data/curriculumData';
+import { getOrGenerateLesson } from '../data/curriculumData';
 
 export const lessonService = {
   getLessonById: async (id) => {
@@ -7,9 +7,9 @@ export const lessonService = {
       const res = await api.get(`/lessons/${id}`);
       if (res?.data) return res;
     } catch (e) {
-      console.warn(`Backend unavailable for lesson ${id}, using fallback:`, e?.message);
+      console.warn(`Backend unavailable for lesson ${id}, using universal curriculum resolver:`, e?.message);
     }
-    const found = DEFAULT_LESSONS[id] || DEFAULT_LESSONS[1001];
+    const found = getOrGenerateLesson(id);
     return { success: true, data: found };
   },
 
@@ -18,9 +18,9 @@ export const lessonService = {
       const res = await api.get(`/lessons/topic/${topicId}`);
       if (res?.data) return res;
     } catch (e) {
-      console.warn(`Backend unavailable for topic lesson ${topicId}, using fallback:`, e?.message);
+      console.warn(`Backend unavailable for topic lesson ${topicId}, using universal curriculum resolver:`, e?.message);
     }
-    const found = DEFAULT_LESSONS[topicId] || DEFAULT_LESSONS[1001];
+    const found = getOrGenerateLesson(topicId);
     return { success: true, data: found };
   },
 
