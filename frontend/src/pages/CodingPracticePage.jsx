@@ -186,10 +186,10 @@ export default function CodingPracticePage() {
       </div>
 
       {/* Main Split-Pane Workspace */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         
         {/* LEFT PANE: Problem Description / SQL Schema */}
-        <div className="w-1/2 border-r border-slate-800 bg-slate-900/40 p-6 overflow-y-auto space-y-6">
+        <div className="w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-900/40 p-4 sm:p-6 overflow-y-auto space-y-6 max-h-[45vh] lg:max-h-none">
           {!isSqlMode ? (
             <>
               {/* Problem Title & Badges */}
@@ -282,7 +282,7 @@ export default function CodingPracticePage() {
         </div>
 
         {/* RIGHT PANE: Monaco Code Editor + Output Drawer */}
-        <div className="w-1/2 flex flex-col bg-slate-950">
+        <div className="w-full lg:w-1/2 flex flex-col bg-slate-950 flex-1 overflow-hidden">
           
           {/* Top Half: Code Editor */}
           <div className="flex-1 overflow-hidden relative">

@@ -19,6 +19,7 @@ export default function NotesPage() {
   const [saving, setSaving] = useState(false);
   const [statusMsg, setStatusMsg] = useState(null);
   const [activeTab, setActiveTab] = useState('write'); // 'write' | 'preview'
+  const [showMobileList, setShowMobileList] = useState(false);
 
   useEffect(() => {
     fetchNotes();
@@ -55,6 +56,7 @@ export default function NotesPage() {
     setIsEditing(false);
     setIsNew(false);
     setActiveTab('preview');
+    setShowMobileList(false);
   };
 
   const handleStartNew = () => {
@@ -64,6 +66,7 @@ export default function NotesPage() {
     setIsNew(true);
     setIsEditing(true);
     setActiveTab('write');
+    setShowMobileList(false);
   };
 
   const handleSave = async () => {
@@ -138,7 +141,7 @@ export default function NotesPage() {
       <div className="flex-1 flex overflow-hidden">
         
         {/* Left Sidebar: Note List */}
-        <div className="w-80 md:w-96 border-r border-slate-800 bg-slate-900/30 flex flex-col shrink-0">
+        <div className={`${(selectedNote || isNew) && !showMobileList ? 'hidden md:flex' : 'flex'} w-full md:w-80 lg:w-96 border-r border-slate-800 bg-slate-900/30 flex-col shrink-0`}>
           
           {/* Search Bar */}
           <div className="p-3 border-b border-slate-800">
@@ -199,12 +202,18 @@ export default function NotesPage() {
         </div>
 
         {/* Right Editor / Preview Workspace */}
-        <div className="flex-1 flex flex-col bg-slate-950 overflow-hidden">
+        <div className={`${!selectedNote && !isNew ? 'hidden md:flex' : (showMobileList ? 'hidden md:flex' : 'flex')} flex-1 flex-col bg-slate-950 overflow-hidden`}>
           {selectedNote || isNew ? (
             <>
               {/* Note Action Bar */}
-              <div className="px-6 py-3 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              <div className="px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <button
+                    onClick={() => setShowMobileList(true)}
+                    className="md:hidden flex items-center gap-1 text-xs text-brand-400 font-semibold px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 transition-colors"
+                  >
+                    ← Notes
+                  </button>
                   <div className="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800">
                     <button
                       onClick={() => { setActiveTab('write'); setIsEditing(true); }}
