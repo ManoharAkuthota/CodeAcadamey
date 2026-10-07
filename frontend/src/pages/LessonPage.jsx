@@ -195,6 +195,34 @@ export default function LessonPage() {
         {/* CENTER PANE: Lesson Concept & Code Content */}
         <main className="flex-1 overflow-y-auto p-6 lg:p-10 space-y-8 max-w-4xl mx-auto">
           
+          {/* Course Progression & Track Header */}
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                  {course?.title || lesson.courseTitle}
+                </span>
+                <span className="text-xs text-slate-500 font-medium">
+                  Topic {lesson.topicIndex || 1} of {lesson.totalTopics || 12}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                <span>{lesson.progressPercentage || Math.round(((lesson.topicIndex || 1) / (lesson.totalTopics || 12)) * 100)}% Course Completed</span>
+                {lesson.nextTopicTitle && (
+                  <span className="text-slate-400 hidden md:inline">• Next: {lesson.nextTopicTitle.replace(/^\d+\.\s*/, '')}</span>
+                )}
+              </div>
+            </div>
+
+            {/* Visual Progress Bar */}
+            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+              <div 
+                className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                style={{ width: `${lesson.progressPercentage || Math.round(((lesson.topicIndex || 1) / (lesson.totalTopics || 12)) * 100)}%` }}
+              />
+            </div>
+          </div>
+
           {/* Topic Title */}
           <div className="space-y-2">
             <span className="text-xs font-mono font-medium text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
@@ -279,24 +307,55 @@ export default function LessonPage() {
             </div>
           )}
 
+          {/* Post-Completion Encouragement Banner */}
+          {isCompleted && (
+            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>
+                  <strong>Topic Mastered!</strong> Ready to continue your uninterrupted learning flow?
+                </span>
+              </div>
+              {lesson.nextTopicId ? (
+                <button
+                  onClick={() => navigate(`/lesson/topic/${lesson.nextTopicId}`)}
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 shadow-xs"
+                >
+                  Continue to Next Topic →
+                </button>
+              ) : lesson.isLastTopicInCourse && lesson.nextCourseId ? (
+                <button
+                  onClick={() => navigate(`/lesson/topic/${lesson.nextCourseFirstTopicId || 2001}`)}
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 shadow-xs"
+                >
+                  Start Next Course Track →
+                </button>
+              ) : null}
+            </div>
+          )}
+
           {/* Navigation Controls */}
-          <div className="pt-6 border-t border-slate-200 flex items-center justify-between">
+          <div className="pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
             {lesson.prevTopicId ? (
               <button
                 onClick={() => navigate(`/lesson/topic/${lesson.prevTopicId}`)}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition-colors shadow-xs cursor-pointer"
+                className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition-colors shadow-xs cursor-pointer"
+                title={lesson.prevTopicTitle}
               >
-                <ChevronLeft className="w-4 h-4" /> Previous Topic
+                <ChevronLeft className="w-4 h-4" />
+                <span className="truncate max-w-[200px]">
+                  {lesson.prevTopicTitle ? `Previous: ${lesson.prevTopicTitle.replace(/^\d+\.\s*/, '')}` : 'Previous Topic'}
+                </span>
               </button>
-            ) : <div />}
+            ) : <div className="hidden md:block" />}
 
-            <div className="flex items-center gap-3">
+            <div className="w-full md:w-auto flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={handleToggleComplete}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   isCompleted 
                     ? 'bg-emerald-50 border border-emerald-300 text-emerald-700' 
-                    : 'bg-brand-600 hover:bg-brand-700 text-white shadow-sm'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm'
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4" />
@@ -306,19 +365,38 @@ export default function LessonPage() {
               {lesson.quizId && (
                 <button
                   onClick={() => setIsQuizOpen(true)}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
+                  className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
                 >
                   <Award className="w-4 h-4" /> Take Topic Quiz
                 </button>
               )}
 
-              {lesson.nextTopicId && (
+              {lesson.nextTopicId ? (
                 <button
                   onClick={() => navigate(`/lesson/topic/${lesson.nextTopicId}`)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition-colors shadow-xs cursor-pointer"
+                  className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+                  title={lesson.nextTopicTitle}
                 >
-                  Next Topic <ChevronRight className="w-4 h-4" />
+                  <span className="truncate max-w-[220px]">
+                    {lesson.nextTopicTitle ? `Next: ${lesson.nextTopicTitle.replace(/^\d+\.\s*/, '')}` : 'Next Topic'}
+                  </span>
+                  <ChevronRight className="w-4 h-4" />
                 </button>
+              ) : lesson.isLastTopicInCourse && lesson.nextCourseId ? (
+                <button
+                  onClick={() => navigate(`/lesson/topic/${lesson.nextCourseFirstTopicId || 2001}`)}
+                  className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+                >
+                  <span>🎉 Complete Track & Continue to {lesson.nextCourseTitle ? lesson.nextCourseTitle.split(':')[0] : 'Next Course'}</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              ) : (
+                <Link
+                  to="/courses"
+                  className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
+                >
+                  Browse Catalog <ChevronRight className="w-4 h-4" />
+                </Link>
               )}
             </div>
           </div>

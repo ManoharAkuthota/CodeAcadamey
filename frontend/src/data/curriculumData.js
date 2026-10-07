@@ -1,5 +1,7 @@
 // Comprehensive offline-resilient curriculum and course catalog
 // Ensures courses ALWAYS render on deployment, local, and preview environments
+import { JAVA_LESSONS_1004_1012 } from './javaCurriculumLessons';
+import { JAVA_QUIZZES_1004_1012 } from './javaCurriculumQuizzes';
 
 export const DEFAULT_COURSES = [
   {
@@ -80,48 +82,64 @@ export const DEFAULT_COURSES = [
       },
       {
         id: 103,
-        title: 'Module 3: Collections & Generics',
-        description: 'List, Set, Map, and algorithmic complexity of JVM data structures.',
+        title: 'Module 3: Collections, Generics & Exception Handling',
+        description: 'Master generic type safety, list/set/map data structures, and robust exception handling.',
         moduleOrder: 3,
         topics: [
           {
             id: 1007,
             title: '7. Generics & Type Safety',
             slug: 'java-generics',
-            summary: 'Generic classes, bounded type parameters, and type erasure.',
+            summary: 'Generic classes, bounded type parameters (<T extends Comparable>), and compiler type erasure.',
             topicOrder: 1,
             completed: false,
           },
           {
             id: 1008,
-            title: '8. List, Set & Map Framework',
+            title: '8. Collections Framework: List, Set & Map',
             slug: 'java-collections-framework',
-            summary: 'ArrayList vs LinkedList, HashSet bucket hashing, and HashMap internal mechanics.',
+            summary: 'ArrayList vs LinkedList, HashSet bucket hashing, and HashMap collision resolution.',
             topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 1009,
+            title: '9. Exception Handling, Custom Exceptions & Try-with-Resources',
+            slug: 'java-exceptions-handling',
+            summary: 'Checked vs unchecked exceptions, try-catch-finally, try-with-resources, and custom domain exceptions.',
+            topicOrder: 3,
             completed: false,
           }
         ]
       },
       {
         id: 104,
-        title: 'Module 4: Modern Java 21 & Concurrency',
-        description: 'Streams API, Records, Sealed Classes, and Virtual Threads.',
+        title: 'Module 4: Modern Java 21, Concurrency & JVM Internals',
+        description: 'Streams API, Functional Lambdas, Virtual Threads, and JVM runtime memory tuning.',
         moduleOrder: 4,
         topics: [
           {
-            id: 1009,
-            title: '9. Functional Programming & Streams API',
+            id: 1010,
+            title: '10. Functional Programming, Lambdas & Streams API',
             slug: 'java-streams-lambdas',
-            summary: 'Declarative data pipelines with map, filter, reduce, and parallel streams.',
+            summary: 'Declarative data pipelines with map, filter, reduce, Collectors, and parallel streams.',
             topicOrder: 1,
             completed: false,
           },
           {
-            id: 1010,
-            title: '10. Virtual Threads & Project Loom',
+            id: 1011,
+            title: '11. Multithreading, Virtual Threads & Concurrency',
             slug: 'java-virtual-threads',
-            summary: 'High-throughput lightweight concurrency on the carrier thread pool.',
+            summary: 'OS platform threads vs Project Loom Virtual Threads, ExecutorService, and thread safety.',
             topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 1012,
+            title: '12. JVM Memory Anatomy, Garbage Collection Tuning & JIT',
+            slug: 'java-jvm-memory-gc',
+            summary: 'Stack vs Heap, Metaspace, ZGC and G1 garbage collection phases, and C2 JIT compilation.',
+            topicOrder: 3,
             completed: false,
           }
         ]
@@ -1119,6 +1137,7 @@ export const DEFAULT_COURSES = [
 ];
 
 export const DEFAULT_LESSONS = {
+  ...JAVA_LESSONS_1004_1012,
   1001: {
     id: 1001,
     topicId: 1001,
@@ -1706,28 +1725,73 @@ LIMIT 10;`,
   }
 };
 
-// Universal Helper: Find topic metadata anywhere in curriculum
+// Universal Helper: Find topic metadata anywhere in curriculum with linear course progression
 export function findTopicMetadata(targetId) {
   const numId = Number(targetId);
   const strId = String(targetId).toLowerCase();
 
-  for (const course of DEFAULT_COURSES) {
+  for (let cIdx = 0; cIdx < DEFAULT_COURSES.length; cIdx++) {
+    const course = DEFAULT_COURSES[cIdx];
+    // Flatten all topics across all modules in this course to establish linear order
+    const courseTopics = [];
     for (const mod of (course.modules || [])) {
       for (const top of (mod.topics || [])) {
-        if (top.id === numId || top.slug === strId || top.lessonId === numId) {
-          return {
-            courseId: course.id,
-            courseTitle: course.title,
-            moduleId: mod.id,
-            moduleTitle: mod.title,
-            topicId: top.id,
-            topicTitle: top.title,
-            topicSlug: top.slug,
-            summary: top.summary || 'Interactive curriculum topic',
-            languageName: course.languageName || 'Java'
-          };
+        courseTopics.push({
+          ...top,
+          moduleId: mod.id,
+          moduleTitle: mod.title
+        });
+      }
+    }
+
+    const foundIdx = courseTopics.findIndex(
+      top => top.id === numId || top.slug === strId || top.lessonId === numId
+    );
+
+    if (foundIdx !== -1) {
+      const top = courseTopics[foundIdx];
+      const prevTopic = foundIdx > 0 ? courseTopics[foundIdx - 1] : null;
+      const nextTopic = foundIdx < courseTopics.length - 1 ? courseTopics[foundIdx + 1] : null;
+      const isLastTopic = foundIdx === courseTopics.length - 1;
+
+      // Recommended next course progression
+      let nextCourse = null;
+      if (isLastTopic) {
+        if (course.id === 1) {
+          nextCourse = DEFAULT_COURSES.find(c => c.id === 2); // Java -> Spring Boot
+        } else if (course.id === 5) {
+          nextCourse = DEFAULT_COURSES.find(c => c.id === 6); // C -> C++
+        } else if (course.id === 8) {
+          nextCourse = DEFAULT_COURSES.find(c => c.id === 3); // JavaScript -> React
+        } else if (cIdx < DEFAULT_COURSES.length - 1) {
+          nextCourse = DEFAULT_COURSES[cIdx + 1];
         }
       }
+
+      const nextCourseFirstTopic = nextCourse?.modules?.[0]?.topics?.[0] || null;
+
+      return {
+        courseId: course.id,
+        courseTitle: course.title,
+        moduleId: top.moduleId,
+        moduleTitle: top.moduleTitle,
+        topicId: top.id,
+        topicTitle: top.title,
+        topicSlug: top.slug,
+        summary: top.summary || 'Interactive curriculum topic',
+        languageName: course.languageName || 'Java',
+        topicIndex: foundIdx + 1,
+        totalTopics: courseTopics.length,
+        progressPercentage: Math.round(((foundIdx + 1) / courseTopics.length) * 100),
+        prevTopicId: prevTopic ? prevTopic.id : null,
+        prevTopicTitle: prevTopic ? prevTopic.title : null,
+        nextTopicId: nextTopic ? nextTopic.id : null,
+        nextTopicTitle: nextTopic ? nextTopic.title : null,
+        isLastTopicInCourse: isLastTopic,
+        nextCourseId: nextCourse ? nextCourse.id : null,
+        nextCourseTitle: nextCourse ? nextCourse.title : null,
+        nextCourseFirstTopicId: nextCourseFirstTopic ? nextCourseFirstTopic.id : null
+      };
     }
   }
   return null;
@@ -1735,13 +1799,55 @@ export function findTopicMetadata(targetId) {
 
 // Universal Lesson Provider: Returns handcrafted lesson or dynamically generates customized topic lesson
 export function getOrGenerateLesson(targetId) {
-  if (DEFAULT_LESSONS[targetId]) {
-    return DEFAULT_LESSONS[targetId];
-  }
+  const meta = findTopicMetadata(targetId) || {
+    courseId: 1,
+    courseTitle: 'Complete Java 21 Mastery: From Fundamentals to Advanced Architecture',
+    moduleId: 101,
+    moduleTitle: 'Module 1: Java Basics & Syntax',
+    topicId: 1001,
+    topicTitle: '1. Introduction to Java & JVM Architecture',
+    topicSlug: 'java-intro-jvm',
+    summary: 'Understand JVM, JRE, JDK, bytecode compilation, and write your first Hello World program.',
+    languageName: 'Java',
+    topicIndex: 1,
+    totalTopics: 12,
+    progressPercentage: 8,
+    prevTopicId: null,
+    prevTopicTitle: null,
+    nextTopicId: 1002,
+    nextTopicTitle: '2. Primitive Types, Variables & Operators',
+    isLastTopicInCourse: false,
+    nextCourseId: null,
+    nextCourseTitle: null,
+    nextCourseFirstTopicId: null
+  };
 
-  const meta = findTopicMetadata(targetId);
-  if (!meta) {
-    return DEFAULT_LESSONS[1001]; // Default fallback
+  const topicKey = meta.topicId || Number(targetId);
+
+  // If a handcrafted lesson exists, enrich it with computed linear progression metadata
+  if (DEFAULT_LESSONS[topicKey] || DEFAULT_LESSONS[targetId]) {
+    const base = DEFAULT_LESSONS[topicKey] || DEFAULT_LESSONS[targetId];
+    return {
+      ...base,
+      courseId: base.courseId || meta.courseId,
+      courseTitle: base.courseTitle || meta.courseTitle,
+      moduleId: base.moduleId || meta.moduleId,
+      moduleTitle: base.moduleTitle || meta.moduleTitle,
+      topicId: meta.topicId,
+      topicTitle: base.topicTitle || meta.topicTitle,
+      topicIndex: meta.topicIndex,
+      totalTopics: meta.totalTopics,
+      progressPercentage: meta.progressPercentage,
+      prevTopicId: meta.prevTopicId,
+      prevTopicTitle: meta.prevTopicTitle,
+      nextTopicId: meta.nextTopicId,
+      nextTopicTitle: meta.nextTopicTitle,
+      isLastTopicInCourse: meta.isLastTopicInCourse,
+      nextCourseId: meta.nextCourseId,
+      nextCourseTitle: meta.nextCourseTitle,
+      nextCourseFirstTopicId: meta.nextCourseFirstTopicId,
+      quizId: base.quizId || meta.topicId
+    };
   }
 
   const lang = (meta.languageName || 'java').toLowerCase();
@@ -2090,16 +2196,71 @@ public class TopicDemo {
     practiceExercise = `Write a Java class demonstrating ${cleanTitle} with private fields and getter/setter methods.`;
   }
 
+  const detailedMarkdown = `# ${cleanTitle} — Comprehensive Engineering Guide
+
+Welcome to this master engineering module on **${cleanTitle}** in **${meta.courseTitle}**.
+
+---
+
+### 1. Architectural Overview & Core Principles
+In modern software engineering, mastering **${cleanTitle}** is essential for building scalable, testable, and fault-tolerant systems in **${meta.languageName}**.
+- **Foundational Purpose**: ${meta.summary}
+- **System Architecture**: Operates as a foundational pillar within ${meta.moduleTitle}, governing how execution state is processed, allocated, and synchronized.
+- **Design Philosophy**: Adheres to high-cohesion, low-coupling design principles, ensuring production codebases remain maintainable across large engineering teams.
+
+---
+
+### 2. Syntax Specifications & Operational Mechanics
+- **Syntax Discipline**: Strict syntax invariants must be upheld. Code formatting, identifier naming, and lexical scoping directly impact runtime predictability.
+- **Compilation & Execution Lifecycle**: Code is verified for structural and semantic validity prior to runtime instruction dispatch, ensuring invariant safety.
+- **Resource Management**: Enforces deterministic cleanup and memory boundaries to prevent system resource exhaustion or process deadlocks.
+
+---
+
+### 3. Runtime Memory Model: Stack, Heap & Execution Flow
+1. **Instruction Entry**: The host runtime engine allocates execution frames on the thread stack.
+2. **Object & Buffer Lifecycles**: Dynamic structures are backed by heap segments; local primitive variables and pointers live in fast CPU registers or stack frames.
+3. **Deallocation**: Resources are deterministically released upon scope termination or reclaimed automatically by high-throughput garbage collectors.
+
+---
+
+### 4. Production-Grade Enterprise Implementation Pattern
+Review the accompanying interactive code implementation. Notice how it adheres to senior engineering standards:
+- Defensive validation of input parameters at function boundaries.
+- Graceful error containment and structured logging.
+- Memory-conscious allocations tailored for high-throughput concurrency.
+
+---
+
+### 5. Senior Developer Best Practices & Security Guardrails
+- **Fail Fast**: Validate preconditions immediately upon function entry; throw descriptive domain errors on malformed state.
+- **Immutability First**: Default to immutable data structures and read-only references to eliminate race conditions.
+- **Observability**: Instrument operations with meaningful audit metrics and telemetry trace points.
+
+---
+
+### 6. Critical Traps, Anti-patterns & Debugging Checklist
+- ❌ **Anti-pattern**: Swallowing exceptions or ignoring return status codes.
+- ❌ **Anti-pattern**: Unbounded allocations leading to memory leaks or full garbage collection freezes.
+- ❌ **Anti-pattern**: Direct state mutation from external scopes without synchronization.
+
+---
+
+### 7. Staff Engineer Interview Deep Dive
+- **Key Question**: *How does ${cleanTitle} scale when traffic or data volume increases by 100x?*
+- **Senior Answer**: It scales by leveraging efficient algorithmic complexity, zero-copy memory references, and non-blocking asynchronous dispatch, avoiding quadratic execution degradation.`;
+
   return {
     id: meta.topicId,
     topicId: meta.topicId,
     topicTitle: meta.topicTitle,
     courseId: meta.courseId,
     courseTitle: meta.courseTitle,
+    moduleId: meta.moduleId,
     moduleTitle: meta.moduleTitle,
     title: cleanTitle,
     codeLanguage: codeLang,
-    contentMarkdown: `# ${cleanTitle}\n\nWelcome to this dedicated module on **${cleanTitle}** in ${meta.courseTitle}.\n\n### Core Concept:\n${meta.summary}\n\n### Key Learning Objectives:\n1. Understand the core principles and syntax requirements of ${meta.languageName}.\n2. Master runtime memory allocation, stack/heap lifecycles, and execution flow.\n3. Write clean, production-ready, maintainable code adhering to industry best practices.`,
+    contentMarkdown: detailedMarkdown,
     codeSnippet,
     codeExplanationJson: JSON.stringify(codeExplanation),
     howItWorksJson: JSON.stringify({
@@ -2117,11 +2278,23 @@ public class TopicDemo {
     executionSteps,
     microCheck,
     keyTakeaways,
-    quizId: meta.topicId
+    quizId: meta.topicId,
+    topicIndex: meta.topicIndex,
+    totalTopics: meta.totalTopics,
+    progressPercentage: meta.progressPercentage,
+    prevTopicId: meta.prevTopicId,
+    prevTopicTitle: meta.prevTopicTitle,
+    nextTopicId: meta.nextTopicId,
+    nextTopicTitle: meta.nextTopicTitle,
+    isLastTopicInCourse: meta.isLastTopicInCourse,
+    nextCourseId: meta.nextCourseId,
+    nextCourseTitle: meta.nextCourseTitle,
+    nextCourseFirstTopicId: meta.nextCourseFirstTopicId
   };
 }
 
 export const DEFAULT_QUIZZES = {
+  ...JAVA_QUIZZES_1004_1012,
   1001: {
     id: 1001,
     topicId: 1001,
@@ -2361,8 +2534,8 @@ export const DEFAULT_QUIZZES = {
 
 // Universal Quiz Provider
 export function getOrGenerateQuiz(targetId) {
-  if (DEFAULT_QUIZZES[targetId]) {
-    return DEFAULT_QUIZZES[targetId];
+  if (DEFAULT_QUIZZES[targetId] || DEFAULT_QUIZZES[Number(targetId)]) {
+    return DEFAULT_QUIZZES[targetId] || DEFAULT_QUIZZES[Number(targetId)];
   }
 
   const meta = findTopicMetadata(targetId);
