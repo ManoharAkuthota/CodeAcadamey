@@ -1,5 +1,5 @@
 import api from './api';
-import { DEFAULT_QUIZZES } from '../data/curriculumData';
+import { DEFAULT_QUIZZES, getOrGenerateQuiz } from '../data/curriculumData';
 
 export const quizService = {
   getQuizById: async (id) => {
@@ -9,7 +9,7 @@ export const quizService = {
     } catch (e) {
       console.warn(`Backend unavailable for quiz ${id}, using fallback:`, e?.message);
     }
-    const found = DEFAULT_QUIZZES[id] || DEFAULT_QUIZZES[1001];
+    const found = getOrGenerateQuiz(id);
     return { success: true, data: found };
   },
 
@@ -20,7 +20,7 @@ export const quizService = {
     } catch (e) {
       console.warn(`Backend unavailable for topic quiz ${topicId}, using fallback:`, e?.message);
     }
-    const found = DEFAULT_QUIZZES[topicId] || DEFAULT_QUIZZES[1001];
+    const found = getOrGenerateQuiz(topicId);
     return { success: true, data: found };
   },
 
@@ -32,7 +32,7 @@ export const quizService = {
       console.warn(`Backend unavailable for submitQuiz ${id}, using local evaluator:`, e?.message);
     }
 
-    const quiz = DEFAULT_QUIZZES[id] || DEFAULT_QUIZZES[1001];
+    const quiz = getOrGenerateQuiz(id);
     const questions = quiz.questions || [];
     let score = 0;
 

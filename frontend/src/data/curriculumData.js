@@ -383,6 +383,38 @@ export const DEFAULT_COURSES = [
             summary: 'How relational storage engines locate rows and how to eliminate full table scans.',
             topicOrder: 1,
             completed: false,
+          },
+          {
+            id: 4005,
+            title: '5. Query Optimization & Indexing Strategies',
+            slug: 'sql-query-optimization',
+            summary: 'Composite indexes, covering indexes, and analyzing slow query logs.',
+            topicOrder: 2,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 404,
+        title: 'Module 4: Transactions, ACID Safety & Schema Design',
+        description: 'ACID guarantees, transaction isolation levels, and database normalization.',
+        moduleOrder: 4,
+        topics: [
+          {
+            id: 4006,
+            title: '6. ACID Transactions & Concurrency Locks',
+            slug: 'sql-acid-transactions',
+            summary: 'Commit, rollback, savepoints, deadlocks, and isolation levels (Read Committed, Serializable).',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 4007,
+            title: '7. Relational Schema Normalization (1NF to 3NF)',
+            slug: 'sql-schema-normalization',
+            summary: 'Eliminate data redundancy with foreign keys and Boyce-Codd normal forms.',
+            topicOrder: 2,
+            completed: false,
           }
         ]
       }
@@ -395,23 +427,167 @@ export const DEFAULT_COURSES = [
     languageName: 'C',
     description: 'Master low-level programming: pointers, memory allocation (malloc/free), stack vs heap, structs, and UNIX system calls.',
     level: 'Intermediate',
-    estimatedHours: 30,
-    moduleCount: 3,
-    topicCount: 6,
+    estimatedHours: 35,
+    moduleCount: 5,
+    topicCount: 15,
     progressPercentage: 0,
     modules: [
       {
         id: 501,
-        title: 'Module 1: Pointers & Direct Memory Access',
-        description: 'Memory addresses, pointer arithmetic, dereferencing, and pointer-to-pointer.',
+        title: 'Module 1: C Fundamentals & Memory Anatomy',
+        description: 'Compilation model with gcc, standard I/O, primitives, and memory sizes.',
         moduleOrder: 1,
         topics: [
           {
             id: 5001,
-            title: '1. Pointers, Addresses & Dereferencing',
+            title: '1. Introduction to C & GCC Compilation Pipeline',
+            slug: 'c-intro-compilation',
+            summary: 'Preprocessing, compilation, assembly, and linking phases in C programs.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 5002,
+            title: '2. Primitive Data Types, Memory Sizes & sizeof',
+            slug: 'c-variables-types',
+            summary: 'Inspect byte sizes of char, short, int, long, float, and double in RAM.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 5003,
+            title: '3. Arithmetic, Logical & Bitwise Operators',
+            slug: 'c-operators-bitwise',
+            summary: 'Bit shifting (<<, >>), masks (&, |, ^), and low-level flag manipulations.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 502,
+        title: 'Module 2: Control Flow & Modular Functions',
+        description: 'Conditionals, loops, function call stack frames, and recursion.',
+        moduleOrder: 2,
+        topics: [
+          {
+            id: 5004,
+            title: '4. Conditionals & Switch Branching',
+            slug: 'c-control-flow',
+            summary: 'if-else branching, switch jump tables, and boolean logic in C.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 5005,
+            title: '5. Iteration Loops: for, while & do-while',
+            slug: 'c-loops',
+            summary: 'Loop mechanics, termination conditions, break and continue flow control.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 5006,
+            title: '6. Functions, Stack Frames & Scope',
+            slug: 'c-functions-stack',
+            summary: 'Call stack frames, pass-by-value semantics, and local variable lifecycles.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 503,
+        title: 'Module 3: Arrays, Strings & Data Structures',
+        description: 'Contiguous memory buffers, null-terminated strings, and custom structs.',
+        moduleOrder: 3,
+        topics: [
+          {
+            id: 5007,
+            title: '7. Contiguous Arrays & Buffer Addressing',
+            slug: 'c-arrays-buffers',
+            summary: 'Contiguous RAM array layout, multi-dimensional matrices, and boundary safety.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 5008,
+            title: '8. Strings & Null-Terminating Characters (\\0)',
+            slug: 'c-strings-null-terminator',
+            summary: 'String handling with string.h, strlen, strcpy, and avoiding buffer overflows.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 5009,
+            title: '9. Custom Structures, Memory Alignment & Padding',
+            slug: 'c-structs-padding',
+            summary: 'struct declarations, memory alignment, padding bytes, and union types.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 504,
+        title: 'Module 4: Pointers & Dynamic Memory Management',
+        description: 'Direct memory addressing, dereferencing, malloc, calloc, and free.',
+        moduleOrder: 4,
+        topics: [
+          {
+            id: 5010,
+            title: '10. Pointers, Memory Addresses & Dereferencing',
             slug: 'c-pointers-basics',
             summary: 'Directly address RAM memory cells using pointers and dereference operations.',
             topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 5011,
+            title: '11. Pointer Arithmetic & Double Pointers (**ptr)',
+            slug: 'c-pointer-arithmetic',
+            summary: 'Incrementing pointers across data type strides and managing 2D pointer arrays.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 5012,
+            title: '12. Dynamic Memory: malloc, calloc & free',
+            slug: 'c-dynamic-memory-malloc',
+            summary: 'Heap memory allocation, checking NULL pointers, and preventing memory leaks.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 505,
+        title: 'Module 5: File I/O & Systems Programming',
+        description: 'File streams, binary I/O, preprocessor directives, and system calls.',
+        moduleOrder: 5,
+        topics: [
+          {
+            id: 5013,
+            title: '13. File Streams: fopen, fread, fwrite & fclose',
+            slug: 'c-file-handling',
+            summary: 'Reading and writing text and binary files using standard I/O streams.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 5014,
+            title: '14. Preprocessor Directives, Macros & Header Guards',
+            slug: 'c-preprocessor-macros',
+            summary: '#define macros, conditional compilation (#ifdef), and header file structuring.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 5015,
+            title: '15. Advanced C: Function Pointers & System Calls',
+            slug: 'c-function-pointers-syscalls',
+            summary: 'Callbacks via function pointers and executing low-level UNIX POSIX system calls.',
+            topicOrder: 3,
             completed: false,
           }
         ]
@@ -425,23 +601,167 @@ export const DEFAULT_COURSES = [
     languageName: 'C++',
     description: 'High-performance C++20: classes, references, copy/move constructors, RAII, templates, and standard algorithms.',
     level: 'Advanced',
-    estimatedHours: 35,
-    moduleCount: 3,
-    topicCount: 6,
+    estimatedHours: 40,
+    moduleCount: 5,
+    topicCount: 15,
     progressPercentage: 0,
     modules: [
       {
         id: 601,
-        title: 'Module 1: Classes & RAII',
-        description: 'Destructors, smart pointers (unique_ptr, shared_ptr), and Resource Acquisition Is Initialization.',
+        title: 'Module 1: C++ Foundations & Type References',
+        description: 'C++ syntax, pass-by-reference, function overloading, and namespaces.',
         moduleOrder: 1,
         topics: [
           {
             id: 6001,
-            title: '1. Smart Pointers & RAII Pattern',
-            slug: 'cpp-smart-pointers',
-            summary: 'Eliminate memory leaks forever with std::unique_ptr and modern C++ ownership semantics.',
+            title: '1. C++ Syntax, Streams (cin/cout) & Namespaces',
+            slug: 'cpp-syntax-namespaces',
+            summary: 'Explore std namespace, iostream buffering, and type-safe I/O in modern C++.',
             topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 6002,
+            title: '2. Pass-by-Reference (&) & Const Correctness',
+            slug: 'cpp-references-const',
+            summary: 'Eliminate copy overhead using references and enforce immutability with const.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 6003,
+            title: '3. Function Overloading & Default Arguments',
+            slug: 'cpp-function-overloading',
+            summary: 'Compile-time polymorphism with overloaded functions and default parameters.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 602,
+        title: 'Module 2: Object-Oriented Programming & Classes',
+        description: 'Encapsulation, constructors, destructors, and member methods.',
+        moduleOrder: 2,
+        topics: [
+          {
+            id: 6004,
+            title: '4. Classes, Objects & Private Encapsulation',
+            slug: 'cpp-classes-encapsulation',
+            summary: 'Define blueprints, access specifiers (public, private), and member initializers.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 6005,
+            title: '5. Constructors, Destructors & Member Initialization',
+            slug: 'cpp-constructors-destructors',
+            summary: 'Manage object lifecycles, initializer lists, and deterministic cleanup.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 6006,
+            title: '6. Deep Copy, Copy Constructors & Rule of Three',
+            slug: 'cpp-copy-constructors',
+            summary: 'Shallow vs deep copying, copy assignment operators, and resource ownership.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 603,
+        title: 'Module 3: Inheritance & Runtime Polymorphism',
+        description: 'Class hierarchies, virtual functions, and abstract interfaces.',
+        moduleOrder: 3,
+        topics: [
+          {
+            id: 6007,
+            title: '7. Class Inheritance & Base Class Access',
+            slug: 'cpp-inheritance',
+            summary: 'Public and protected inheritance, calling base constructors, and code reuse.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 6008,
+            title: '8. Virtual Functions, VTables & Dynamic Dispatch',
+            slug: 'cpp-virtual-functions',
+            summary: 'Runtime polymorphism via virtual keyword, VTable pointers, and method overriding.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 6009,
+            title: '9. Pure Virtual Functions & Abstract Interfaces',
+            slug: 'cpp-abstract-interfaces',
+            summary: 'Define pure virtual methods (= 0) and establish contract interfaces in C++.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 604,
+        title: 'Module 4: RAII & Smart Pointers (Memory Safety)',
+        description: 'Resource Acquisition Is Initialization, unique_ptr, shared_ptr, and move semantics.',
+        moduleOrder: 4,
+        topics: [
+          {
+            id: 6010,
+            title: '10. RAII Pattern & Deterministic Cleanup',
+            slug: 'cpp-raii-pattern',
+            summary: 'Tie resource allocation to object lifetime to eliminate leaks permanently.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 6011,
+            title: '11. std::unique_ptr & Exclusive Ownership',
+            slug: 'cpp-unique-ptr',
+            summary: 'Zero-overhead smart pointers with move-only ownership and auto destruction.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 6012,
+            title: '12. std::shared_ptr, std::weak_ptr & Reference Counting',
+            slug: 'cpp-shared-weak-ptr',
+            summary: 'Shared ownership with atomic reference counting and breaking circular refs.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 605,
+        title: 'Module 5: Standard Template Library (STL) & Templates',
+        description: 'Generic programming, containers, iterators, and algorithms.',
+        moduleOrder: 5,
+        topics: [
+          {
+            id: 6013,
+            title: '13. Function & Class Templates',
+            slug: 'cpp-templates-generic',
+            summary: 'Write type-independent generic classes and functions with template<typename T>.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 6014,
+            title: '14. STL Containers: vector, map & unordered_map',
+            slug: 'cpp-stl-containers',
+            summary: 'Dynamic arrays, Red-Black trees (std::map), and hash tables (std::unordered_map).',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 6015,
+            title: '15. STL Algorithms (std::sort, find) & Lambdas',
+            slug: 'cpp-stl-algorithms-lambdas',
+            summary: 'Modern high-performance algorithms with modern C++ anonymous lambda closures.',
+            topicOrder: 3,
             completed: false,
           }
         ]
@@ -455,23 +775,167 @@ export const DEFAULT_COURSES = [
     languageName: 'Python',
     description: 'Master Pythonic idioms: lists, dicts, generators, decorators, OOP, file I/O, and REST API consumption.',
     level: 'Beginner to Intermediate',
-    estimatedHours: 30,
-    moduleCount: 3,
-    topicCount: 6,
+    estimatedHours: 35,
+    moduleCount: 5,
+    topicCount: 15,
     progressPercentage: 0,
     modules: [
       {
         id: 701,
-        title: 'Module 1: Pythonic Foundations',
-        description: 'List comprehensions, dictionary operations, and generator expressions.',
+        title: 'Module 1: Pythonic Syntax & Core Types',
+        description: 'Python interpreter, variables, dynamic typing, strings, and operators.',
         moduleOrder: 1,
         topics: [
           {
             id: 7001,
-            title: '1. Comprehensions & Generator Pipelines',
-            slug: 'python-comprehensions',
-            summary: 'Write elegant, readable, memory-efficient data transformations with Python expressions.',
+            title: '1. Python Execution Model & Clean Syntax',
+            slug: 'python-intro-syntax',
+            summary: 'How CPython bytecode works, indentation rules, and interactive REPL.',
             topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 7002,
+            title: '2. Dynamic Variables & Type Casting',
+            slug: 'python-variables-types',
+            summary: 'Duck typing, integers, floats, booleans, and type casting functions (int(), str()).',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 7003,
+            title: '3. Strings, Slicing & F-Strings Formatting',
+            slug: 'python-strings-formatting',
+            summary: 'String methods (.strip(), .split()), slicing ([start:stop:step]), and f-string interpolation.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 702,
+        title: 'Module 2: Control Flow & Modular Functions',
+        description: 'Conditionals, loops, functions, default arguments, and lambda expressions.',
+        moduleOrder: 2,
+        topics: [
+          {
+            id: 7004,
+            title: '4. Conditionals & Logical Operators (if-elif-else)',
+            slug: 'python-control-flow',
+            summary: 'Boolean logic, truthy/falsy values, and conditional branching.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 7005,
+            title: '5. Iteration: for Loops, while Loops & range()',
+            slug: 'python-loops',
+            summary: 'Iterating sequences with for-in, enumerate(), zip(), break, and continue.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 7006,
+            title: '6. Functions, *args, **kwargs & Lambdas',
+            slug: 'python-functions-args',
+            summary: 'Defining modular functions, arbitrary arguments, and anonymous lambda functions.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 703,
+        title: 'Module 3: Core Data Structures (Lists, Dicts, Sets)',
+        description: 'In-depth mastery of Python collections and computational complexity.',
+        moduleOrder: 3,
+        topics: [
+          {
+            id: 7007,
+            title: '7. Lists: Indexing, Slicing & Methods',
+            slug: 'python-lists',
+            summary: 'Dynamic arrays in Python, .append(), .pop(), .sort(), and reference copies.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 7008,
+            title: '8. Tuples & Unpacking',
+            slug: 'python-tuples',
+            summary: 'Immutable sequences, tuple unpacking, and using tuples as dictionary keys.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 7009,
+            title: '9. Dictionaries & Hash Mapping',
+            slug: 'python-dictionaries',
+            summary: 'Key-value mapping with O(1) hash lookups, .get(), .items(), and nested dictionaries.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 704,
+        title: 'Module 4: Advanced Python Patterns & Metaprogramming',
+        description: 'Comprehensions, generators, decorators, and context managers.',
+        moduleOrder: 4,
+        topics: [
+          {
+            id: 7010,
+            title: '10. List & Dictionary Comprehensions',
+            slug: 'python-comprehensions',
+            summary: 'Write elegant, readable, memory-efficient data transformations in one line.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 7011,
+            title: '11. Generator Functions & yield Pipelines',
+            slug: 'python-generators',
+            summary: 'Lazy evaluation, stream processing massive files without memory exhaustion.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 7012,
+            title: '12. Decorators & Higher-Order Wrappers',
+            slug: 'python-decorators',
+            summary: 'Wrap functions with @decorator syntax for logging, authentication, and caching.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 705,
+        title: 'Module 5: OOP, REST APIs & File Handling',
+        description: 'Classes, inheritance, context managers, and calling REST APIs.',
+        moduleOrder: 5,
+        topics: [
+          {
+            id: 7013,
+            title: '13. Classes, __init__ & Object-Oriented Design',
+            slug: 'python-oop',
+            summary: 'Define classes, self binding, dunder magic methods (__repr__, __str__), and inheritance.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 7014,
+            title: '14. File I/O & Context Managers (with open)',
+            slug: 'python-file-io',
+            summary: 'Reading, writing text and JSON files safely with automatic file handle closure.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 7015,
+            title: '15. Consuming REST APIs with requests & JSON',
+            slug: 'python-rest-apis',
+            summary: 'Perform HTTP GET/POST requests, parse JSON payloads, and handle network errors.',
+            topicOrder: 3,
             completed: false,
           }
         ]
@@ -485,23 +949,167 @@ export const DEFAULT_COURSES = [
     languageName: 'JavaScript',
     description: 'Deep dive into closures, prototypal inheritance, Promises, async/await, the Event Loop, and Express APIs.',
     level: 'Beginner to Intermediate',
-    estimatedHours: 32,
-    moduleCount: 3,
-    topicCount: 6,
+    estimatedHours: 35,
+    moduleCount: 5,
+    topicCount: 15,
     progressPercentage: 0,
     modules: [
       {
         id: 801,
-        title: 'Module 1: Asynchronous JavaScript',
-        description: 'Event Loop, Callbacks, Promises, and async/await syntax.',
+        title: 'Module 1: JS Execution & Modern Syntax',
+        description: 'Execution context, scopes, hoisting, let/const, and data types.',
         moduleOrder: 1,
         topics: [
           {
             id: 8001,
-            title: '1. The Event Loop, Microtasks & Promises',
+            title: '1. Execution Context, Call Stack & Hoisting',
+            slug: 'js-execution-context',
+            summary: 'How the V8 JavaScript engine parses code, allocates memory, and manages call stack frames.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 8002,
+            title: '2. Variable Scopes: var vs let vs const',
+            slug: 'js-scopes-variables',
+            summary: 'Block scope, function scope, and the Temporal Dead Zone (TDZ).',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 8003,
+            title: '3. Data Types, Primitives & Type Coercion',
+            slug: 'js-data-types-coercion',
+            summary: 'Numbers, Strings, Booleans, null vs undefined, and strict equality (=== vs ==).',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 802,
+        title: 'Module 2: Functions, Closures & Array Methods',
+        description: 'Arrow functions, lexical this, closures, map, filter, and reduce.',
+        moduleOrder: 2,
+        topics: [
+          {
+            id: 8004,
+            title: '4. Functions, Arrow Syntax & Lexical this',
+            slug: 'js-functions-this',
+            summary: 'Function declarations vs expressions, arrow functions, and how this binds.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 8005,
+            title: '5. Closures & Private Variable State',
+            slug: 'js-closures',
+            summary: 'Understand lexical scoping and encapsulate private state in functions.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 8006,
+            title: '6. Higher-Order Array Methods (map, filter, reduce)',
+            slug: 'js-array-methods',
+            summary: 'Functional declarative data transformations without mutating original arrays.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 803,
+        title: 'Module 3: Objects, Prototypes & Modern ES6+',
+        description: 'Object manipulation, prototype chain, destructuring, and modules.',
+        moduleOrder: 3,
+        topics: [
+          {
+            id: 8007,
+            title: '7. Objects, Prototypes & Prototypal Inheritance',
+            slug: 'js-prototypes-objects',
+            summary: 'How JavaScript inherits properties through the prototype chain and modern ES6 class syntax.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 8008,
+            title: '8. Modern ES6+: Destructuring, Spread & Rest',
+            slug: 'js-es6-destructuring',
+            summary: 'Unpack arrays and objects effortlessly with modern syntax operators.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 8009,
+            title: '9. ES Modules (import / export)',
+            slug: 'js-es-modules',
+            summary: 'Organize applications with modular files, default exports, and named exports.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 804,
+        title: 'Module 4: Asynchronous JavaScript & Promises',
+        description: 'Event Loop, microtasks, Promise chaining, and async/await.',
+        moduleOrder: 4,
+        topics: [
+          {
+            id: 8010,
+            title: '10. The Event Loop, Microtasks & Macrotasks',
             slug: 'js-event-loop-promises',
             summary: 'How single-threaded JavaScript handles non-blocking asynchronous operations.',
             topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 8011,
+            title: '11. Promises & Asynchronous Resolution',
+            slug: 'js-promises-chaining',
+            summary: 'Promise states (pending, fulfilled, rejected), .then(), .catch(), and Promise.all().',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 8012,
+            title: '12. async / await & Async Error Handling',
+            slug: 'js-async-await',
+            summary: 'Write synchronous-looking asynchronous code with try/catch exception guards.',
+            topicOrder: 3,
+            completed: false,
+          }
+        ]
+      },
+      {
+        id: 805,
+        title: 'Module 5: Web APIs & Backend Foundations',
+        description: 'Fetch API, LocalStorage, DOM manipulation, and Node.js basics.',
+        moduleOrder: 5,
+        topics: [
+          {
+            id: 8013,
+            title: '13. Fetch API & HTTP Network Requests',
+            slug: 'js-fetch-api',
+            summary: 'Fetch data from remote REST endpoints, parse JSON responses, and handle HTTP status codes.',
+            topicOrder: 1,
+            completed: false,
+          },
+          {
+            id: 8014,
+            title: '14. DOM Manipulation & Event Bubbling',
+            slug: 'js-dom-events',
+            summary: 'Select DOM elements, attach event listeners, and manage event delegation.',
+            topicOrder: 2,
+            completed: false,
+          },
+          {
+            id: 8015,
+            title: '15. Node.js & Express REST Backend Foundations',
+            slug: 'js-nodejs-express',
+            summary: 'Run JavaScript on the server with Node.js and build RESTful JSON API endpoints.',
+            topicOrder: 3,
             completed: false,
           }
         ]
@@ -1138,6 +1746,349 @@ export function getOrGenerateLesson(targetId) {
 
   const lang = (meta.languageName || 'java').toLowerCase();
   const cleanTitle = meta.topicTitle.replace(/^\d+\.\s*/, '');
+  const codeLang = (lang === 'c++' || lang === 'cpp') ? 'cpp' : (lang === 'c' ? 'c' : (lang === 'javascript' || lang === 'js' ? 'javascript' : (lang === 'python' ? 'python' : (lang === 'sql' ? 'sql' : 'java'))));
+
+  let codeSnippet = '';
+  let codeExplanation = {};
+  let executionSteps = [];
+  let analogy = {};
+  let microCheck = {};
+  let keyTakeaways = [];
+  let realWorldExample = '';
+  let commonMistakes = '';
+  let bestPractices = '';
+  let practiceExercise = '';
+
+  if (codeLang === 'c') {
+    codeSnippet = `#include <stdio.h>
+#include <stdlib.h>
+
+// Topic: ${cleanTitle}
+int main(void) {
+    printf("Mastering ${cleanTitle} in C\\n");
+    int status = 1;
+    if (status) {
+        printf("Systems concept verified successfully.\\n");
+    }
+    return 0;
+}`;
+    codeExplanation = {
+      whatDoesItDo: `Implements the core logic for ${cleanTitle} using standard C systems programming idioms.`,
+      whyNeeded: `Essential low-level construct providing direct hardware, memory, and register control.`,
+      howItWorks: `Compiled by GCC/Clang directly into architecture-specific machine code with zero runtime overhead.`,
+      internalMechanics: `Allocates local stack frames and interacts with virtual RAM addresses.`,
+      realWorldUsage: `Employed in Linux operating system kernels, embedded robotics, and Redis data engines.`,
+      commonMistakes: `Forgetting memory boundaries leading to segmentation faults or memory leaks.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 5, title: 'Entry Point & Call Frame', explanation: 'main() initiates execution frame on the CPU thread stack.', memoryState: { 'status': 'uninitialized' }, consoleOutput: '' },
+      { step: 2, activeLine: 6, title: 'Standard I/O Stream', explanation: 'printf writes the concept string to stdout buffer.', memoryState: { 'status': '1' }, consoleOutput: `Mastering ${cleanTitle} in C` },
+      { step: 3, activeLine: 10, title: 'Process Exit Code 0', explanation: 'Returns status code 0 to the host OS kernel.', memoryState: { 'RAX': '0 (EXIT_SUCCESS)' }, consoleOutput: `Mastering ${cleanTitle} in C\nSystems concept verified successfully.` }
+    ];
+    analogy = {
+      title: `💡 Industrial Precision Lathe for ${cleanTitle}`,
+      story: `Working with ${cleanTitle} in C is like operating an industrial manual lathe: there are no digital safety bumpers, giving you unmatched raw cutting speed and hardware accuracy if you measure carefully!`,
+      comparisons: [
+        { realWorld: "Industrial cutting tool", programming: `${cleanTitle} C syntax construct` },
+        { realWorld: "Raw solid metal block", programming: "System RAM buffer" },
+        { realWorld: "Machinist safety goggles", programming: "Compiler warnings (-Wall -Wextra)" },
+        { realWorld: "Final machined part", programming: "Running native binary executable" }
+      ]
+    };
+    microCheck = {
+      prompt: `Why is mastering ${cleanTitle} important when engineering low-level C software?`,
+      options: [
+        `It provides direct control over CPU instructions and physical memory layout`,
+        `It requires a Java Virtual Machine to execute`,
+        `It automatically disables all compiler checks`,
+        `It is only used in web browsers`
+      ],
+      correctIndex: 0,
+      explanation: `Spot on! In C, mastering ${cleanTitle} gives you predictable execution and complete hardware authority.`
+    };
+    keyTakeaways = [
+      `1. Master memory layout and pointer semantics for ${cleanTitle}.`,
+      `2. Always check return codes and pointer validity before dereferencing.`,
+      `3. Compile with -Wall -Wextra to catch bugs at compile time.`
+    ];
+    realWorldExample = `Used in high-performance network sockets, Linux drivers, and embedded microcontrollers.`;
+    commonMistakes = `Dereferencing uninitialized pointers or ignoring buffer bounds.`;
+    bestPractices = `Always initialize pointers, verify malloc returns, and free all dynamically allocated memory.`;
+    practiceExercise = `Write a standalone C function demonstrating ${cleanTitle} with custom test inputs.`;
+  } else if (codeLang === 'cpp') {
+    codeSnippet = `#include <iostream>
+#include <vector>
+#include <string>
+
+// Topic: ${cleanTitle}
+int main() {
+    std::cout << "Mastering ${cleanTitle} in Modern C++\\n";
+    std::vector<int> data = {10, 20, 30};
+    for (const auto& item : data) {
+        std::cout << "Item: " << item << "\\n";
+    }
+    return 0;
+}`;
+    codeExplanation = {
+      whatDoesItDo: `Demonstrates ${cleanTitle} following modern C++ RAII and STL best practices.`,
+      whyNeeded: `Provides zero-cost abstractions combining speed with safe, readable architecture.`,
+      howItWorks: `Compiled directly to native binary; STL containers manage resources deterministically.`,
+      internalMechanics: `Stack allocation with automatic destructor cleanup when leaving scope.`,
+      realWorldUsage: `Unreal Engine 5 games, autonomous vehicle systems, and high-frequency trading engines.`,
+      commonMistakes: `Unnecessary copying of objects by value instead of const references.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 6, title: 'Main Initialization', explanation: 'Initializes stack variables and outputs greeting.', memoryState: { 'std::cout': 'ready' }, consoleOutput: `Mastering ${cleanTitle} in Modern C++` },
+      { step: 2, activeLine: 7, title: 'STL Vector Construction', explanation: 'vector allocates dynamic buffer on Heap using RAII.', memoryState: { 'data': '{10, 20, 30}' }, consoleOutput: `Mastering ${cleanTitle} in Modern C++` },
+      { step: 3, activeLine: 11, title: 'Scope Cleanup & Exit', explanation: 'Vector destructor frees heap buffer automatically on scope exit.', memoryState: { 'data': 'Destructed (RAII)' }, consoleOutput: `Mastering ${cleanTitle} in Modern C++\nItem: 10\nItem: 20\nItem: 30` }
+    ];
+    analogy = {
+      title: `💡 Modern Formula 1 Cockpit for ${cleanTitle}`,
+      story: `Modern C++ gives you the raw horsepower of a Formula 1 racing engine with state-of-the-art telemetry and safety harnesses: zero-cost abstractions that protect your memory without sacrificing lap times.`,
+      comparisons: [
+        { realWorld: "F1 racing engine", programming: "C++ high-performance execution" },
+        { realWorld: "Safety harness", programming: "RAII smart pointers (std::unique_ptr)" },
+        { realWorld: "Telemetry steering wheel", programming: "STL containers & modern algorithms" },
+        { realWorld: "Pit crew inspection", programming: "Compile-time template verification" }
+      ]
+    };
+    microCheck = {
+      prompt: `What is the principal benefit of applying RAII principles to ${cleanTitle} in C++?`,
+      options: [
+        `Guaranteed deterministic resource cleanup without needing a garbage collector`,
+        `It converts C++ code into Python at runtime`,
+        `It bypasses the need for constructors`,
+        `It eliminates all syntax rules`
+      ],
+      correctIndex: 0,
+      explanation: `Correct! RAII ties resource lifetimes directly to stack scopes, eliminating leaks permanently.`
+    };
+    keyTakeaways = [
+      `1. Use RAII to manage all resource lifecycles automatically.`,
+      `2. Pass complex objects by const reference (const T&) to eliminate copy overhead.`,
+      `3. Leverage the Standard Template Library (STL) over raw manual arrays.`
+    ];
+    realWorldExample = `Chromium rendering engine and Unreal Engine core subsystem architecture.`;
+    commonMistakes = `Using raw pointers and manual delete instead of smart pointers.`;
+    bestPractices = `Favor std::make_unique and pass non-owning references by const&.`;
+    practiceExercise = `Write an RAII wrapper demonstrating ${cleanTitle} with custom constructor and destructor logs.`;
+  } else if (codeLang === 'python') {
+    codeSnippet = `# Topic: ${cleanTitle}
+def process_data():
+    print("Mastering ${cleanTitle} in Python 3")
+    dataset = [1, 2, 3, 4, 5]
+    transformed = [x * 10 for x in dataset if x > 2]
+    print(f"Result: {transformed}")
+    return transformed
+
+if __name__ == '__main__':
+    process_data()
+`;
+    codeExplanation = {
+      whatDoesItDo: `Implements ${cleanTitle} with clean Python 3 idioms, list comprehensions, and type-safe structures.`,
+      whyNeeded: `Provides rapid prototyping and expressive syntax for production engineering.`,
+      howItWorks: `CPython compiles source to bytecode (.pyc) and evaluates in the Python Virtual Machine.`,
+      internalMechanics: `PyObject structs managed by reference counting and cyclic garbage collection.`,
+      realWorldUsage: `Machine learning with PyTorch, web backends with FastAPI/Django, and data processing.`,
+      commonMistakes: `Mutable default arguments and mixing tabs with spaces.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 9, title: 'Module Execution Entry', explanation: 'Checks __name__ == "__main__" and enters function frame.', memoryState: { '__name__': '"__main__"' }, consoleOutput: '' },
+      { step: 2, activeLine: 3, title: 'List Transformation', explanation: 'Evaluates list comprehension at C-speed in CPython.', memoryState: { 'dataset': '[1, 2, 3, 4, 5]', 'transformed': '[30, 40, 50]' }, consoleOutput: `Mastering ${cleanTitle} in Python 3` },
+      { step: 3, activeLine: 6, title: 'Formatted Output & Return', explanation: 'F-string interpolation prints transformed results.', memoryState: { 'returned': '[30, 40, 50]' }, consoleOutput: `Mastering ${cleanTitle} in Python 3\nResult: [30, 40, 50]` }
+    ];
+    analogy = {
+      title: `💡 The Universal Swiss Army Knife for ${cleanTitle}`,
+      story: `Python is like a master Swiss Army Knife: it has an elegant, purpose-built blade for every scenario, letting you solve complex automation challenges with minimal, expressive code.`,
+      comparisons: [
+        { realWorld: "Multi-tool blade", programming: `${cleanTitle} Pythonic construct` },
+        { realWorld: "Compact folding mechanism", programming: "List comprehension / concise syntax" },
+        { realWorld: "Clear instructions on handle", programming: "PEP 8 clean code standard" },
+        { realWorld: "Self-sharpening steel", programming: "Automatic memory & Garbage Collection" }
+      ]
+    };
+    microCheck = {
+      prompt: `Why is Python's approach to ${cleanTitle} favored in modern data and backend engineering?`,
+      options: [
+        `High developer productivity, readability, and a rich standard library ecosystem`,
+        `It requires no CPU to execute`,
+        `It is impossible to make any logic errors in Python`,
+        `It only runs on supercomputers`
+      ],
+      correctIndex: 0,
+      explanation: `Correct! Python prioritizes human readability and velocity without sacrificing powerful features.`
+    };
+    keyTakeaways = [
+      `1. Follow PEP 8 guidelines for clean, readable, idiomatic code.`,
+      `2. Use type hints (typing module) to ensure long-term codebase maintainability.`,
+      `3. Leverage built-in comprehensions and generators for high memory efficiency.`
+    ];
+    realWorldExample = `Production data pipelines at Instagram, Spotify, and Netflix.`;
+    commonMistakes = `Modifying a list while iterating over it in a for-loop.`;
+    bestPractices = `Use virtual environments, type annotations, and comprehensions.`;
+    practiceExercise = `Write a Python function demonstrating ${cleanTitle} that handles edge cases and invalid inputs gracefully.`;
+  } else if (codeLang === 'javascript') {
+    codeSnippet = `// Topic: ${cleanTitle}
+function runTopicDemo() {
+  console.log("Mastering ${cleanTitle} in JavaScript");
+  const items = [10, 20, 30, 40];
+  const doubled = items.map(n => n * 2);
+  console.log("Transformed items:", doubled);
+  return { success: true, count: doubled.length };
+}
+
+runTopicDemo();`;
+    codeExplanation = {
+      whatDoesItDo: `Implements ${cleanTitle} using modern ES6+ syntax and functional array methods.`,
+      whyNeeded: `Essential for building responsive browser frontends and scalable Node.js microservices.`,
+      howItWorks: `Parsed and compiled Just-In-Time (JIT) by Google V8 into optimized machine code.`,
+      internalMechanics: `Single-threaded event loop architecture handling non-blocking operations.`,
+      realWorldUsage: `Modern React/Next.js web applications and Express/NestJS backend APIs.`,
+      commonMistakes: `Accidental global variables, stale closures, and unhandled Promise rejections.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 2, title: 'Function Frame Pushed', explanation: 'runTopicDemo pushed onto V8 Call Stack.', memoryState: { 'items': 'uninitialized' }, consoleOutput: '' },
+      { step: 2, activeLine: 4, title: 'Array Method Transformation', explanation: 'map() applies arrow callback non-destructively.', memoryState: { 'doubled': '[20, 40, 60, 80]' }, consoleOutput: `Mastering ${cleanTitle} in JavaScript` },
+      { step: 3, activeLine: 9, title: 'Return Object & Pop Frame', explanation: 'Returns status object and pops frame from Call Stack.', memoryState: { 'result': '{ success: true, count: 4 }' }, consoleOutput: `Mastering ${cleanTitle} in JavaScript\nTransformed items: [20, 40, 60, 80]` }
+    ];
+    analogy = {
+      title: `💡 Interactive Command Dashboard for ${cleanTitle}`,
+      story: `JavaScript is like the interactive touchscreen console of a modern electric car: it reacts instantaneously to every driver tap (Event Loop) while continuously updating maps and battery analytics in the background!`,
+      comparisons: [
+        { realWorld: "Responsive touchscreen", programming: "Browser UI & DOM Events" },
+        { realWorld: "Background battery monitoring", programming: "Non-blocking Asynchronous event loop" },
+        { realWorld: "Driver profile preset", programming: "Closure & Lexical scope" },
+        { realWorld: "Instant accelerator pedal", programming: "V8 JIT compilation" }
+      ]
+    };
+    microCheck = {
+      prompt: `What is the primary role of the JavaScript Event Loop when processing ${cleanTitle}?`,
+      options: [
+        `Coordinating non-blocking asynchronous callbacks while keeping the single main thread responsive`,
+        `Compiling JavaScript to C++ binary files`,
+        `Managing database schema migrations`,
+        `Rebooting the browser on error`
+      ],
+      correctIndex: 0,
+      explanation: `Correct! The Event Loop checks the Call Stack and moves tasks from the Microtask and Macrotask queues to execute asynchronously without blocking the UI.`
+    };
+    keyTakeaways = [
+      `1. Use const by default, let when reassigning, and avoid var entirely.`,
+      `2. Understand the single-threaded Event Loop and Microtask Queue priority.`,
+      `3. Treat state as immutable—use map, filter, and spread operators.`
+    ];
+    realWorldExample = `Interactive web applications powered by React, Vue, and Node.js.`;
+    commonMistakes = `Mutating state arrays directly instead of returning new copies.`;
+    bestPractices = `Favor pure functions, arrow syntax, and handle async errors with try/catch.`;
+    practiceExercise = `Write an asynchronous function demonstrating ${cleanTitle} using async/await and try/catch.`;
+  } else if (codeLang === 'sql') {
+    codeSnippet = `-- Topic: ${cleanTitle}
+SELECT 
+    id, 
+    name, 
+    status, 
+    created_at 
+FROM records 
+WHERE status = 'ACTIVE' 
+ORDER BY created_at DESC 
+LIMIT 10;`;
+    codeExplanation = {
+      whatDoesItDo: `Queries filtered records demonstrating relational query projection and indexing patterns.`,
+      whyNeeded: `Relational database querying is fundamental to all persistent software backends.`,
+      howItWorks: `Parsed by SQL engine, optimized via execution plan, and retrieved via B-Tree index scan.`,
+      internalMechanics: `Storage engine loads 16KB index pages into InnoDB Buffer Pool to satisfy query.`,
+      realWorldUsage: `E-commerce order history, enterprise financial ledgers, and user profile queries.`,
+      commonMistakes: `Using SELECT * in production or omitting indexes on WHERE/ORDER BY columns.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 6, title: 'FROM & WHERE Evaluation', explanation: 'Engine locates records table and filters rows with status = ACTIVE.', memoryState: { 'TableScan': 'Index used: idx_status' }, consoleOutput: '' },
+      { step: 2, activeLine: 7, title: 'ORDER BY & LIMIT', explanation: 'Sorts candidate rows by created_at and limits output to top 10.', memoryState: { 'ResultBuffer': '10 rows selected' }, consoleOutput: '' },
+      { step: 3, activeLine: 2, title: 'Column Projection to Client', explanation: 'Flushes projected columns (id, name, status, created_at) to client.', memoryState: { 'NetworkPacket': 'Sent to client' }, consoleOutput: `+----+------------------+---------+---------------------+\n| id | name             | status  | created_at          |\n+----+------------------+---------+---------------------+\n|  1 | Record Alpha     | ACTIVE  | 2026-10-06 12:00:00 |\n+----+------------------+---------+---------------------+` }
+    ];
+    analogy = {
+      title: `💡 The High-Speed Library Index Card Catalog`,
+      story: `Querying an SQL database is like asking a librarian with an indexed card catalog. Instead of walking through 100,000 shelves checking every book (full table scan), the librarian looks at the alphabetical card index (B-Tree) and walks directly to the exact shelf in 2 seconds!`,
+      comparisons: [
+        { realWorld: "Entire library bookshelves", programming: "Database Table" },
+        { realWorld: "Card catalog drawer", programming: "B-Tree Index" },
+        { realWorld: "Only pulling specific book titles", programming: "SELECT column projection" },
+        { realWorld: "Checking book availability badge", programming: "WHERE condition filter" }
+      ]
+    };
+    microCheck = {
+      prompt: `Why should production applications avoid using "SELECT *" when querying ${cleanTitle}?`,
+      options: [
+        `It wastes network bandwidth, increases memory usage, and prevents index-only covering scans`,
+        `It is unsupported in SQL standard 2023`,
+        `It automatically deletes unprojected columns`,
+        `It turns off database transactions`
+      ],
+      correctIndex: 0,
+      explanation: `Correct! Explicit column projection reduces network transfer, saves client memory, and enables high-performance covering index scans.`
+    };
+    keyTakeaways = [
+      `1. Query execution begins at FROM and WHERE, before SELECT projection.`,
+      `2. Index columns frequently used in WHERE, JOIN, and ORDER BY clauses.`,
+      `3. Always specify explicit column names rather than SELECT *.`
+    ];
+    realWorldExample = `High-frequency banking payment ledgers and e-commerce shopping carts.`;
+    commonMistakes = `Missing indexes on foreign keys causing slow table joins.`;
+    bestPractices = `Use EXPLAIN to inspect query plans and verify index utilization.`;
+    practiceExercise = `Write an SQL query demonstrating ${cleanTitle} with a JOIN between two relational tables.`;
+  } else {
+    // Default Java
+    codeSnippet = `// Topic: ${cleanTitle}
+public class TopicDemo {
+    public static void main(String[] args) {
+        System.out.println("Mastering ${cleanTitle} in Java 21");
+        int status = 200;
+        System.out.println("Status: " + status);
+    }
+}`;
+    codeExplanation = {
+      whatDoesItDo: `Implements ${cleanTitle} following Java 21 enterprise architecture patterns.`,
+      whyNeeded: `Fundamental building block for robust enterprise JVM applications.`,
+      howItWorks: `Compiled to bytecode (.class) and executed by the Java Virtual Machine.`,
+      internalMechanics: `Local primitives allocated on Thread Stack; objects allocated in Heap.`,
+      realWorldUsage: `Enterprise microservices, Spring Boot backends, and cloud native architectures.`,
+      commonMistakes: `NullPointerExceptions and improper exception handling.`
+    };
+    executionSteps = [
+      { step: 1, activeLine: 2, title: 'JVM Class Loading', explanation: 'JVM loads TopicDemo class into Method Area.', memoryState: { 'ClassLoader': 'Verified' }, consoleOutput: '' },
+      { step: 2, activeLine: 3, title: 'Entry Point Execution', explanation: 'main() stack frame allocated and outputs greeting.', memoryState: { 'status': '200' }, consoleOutput: `Mastering ${cleanTitle} in Java 21` },
+      { step: 3, activeLine: 5, title: 'Completion & Stack Pop', explanation: 'Outputs status code and pops thread stack frame.', memoryState: { 'StackFrame': 'Popped' }, consoleOutput: `Mastering ${cleanTitle} in Java 21\nStatus: 200` }
+    ];
+    analogy = {
+      title: `💡 Enterprise Architectural Blueprint for ${cleanTitle}`,
+      story: `Java is like an enterprise skyscraper blueprint: strict building codes, reinforced concrete foundations, and inspectable plumbing ensure the structure can scale to 100 stories without swaying in a storm!`,
+      comparisons: [
+        { realWorld: "Architectural blueprint", programming: "Java Class definition" },
+        { realWorld: "Reinforced concrete pillar", programming: "Strong static type safety" },
+        { realWorld: "Universal construction equipment", programming: "Java Virtual Machine (JVM)" },
+        { realWorld: "Building code inspection", programming: "Java Compiler (javac) checks" }
+      ]
+    };
+    microCheck = {
+      prompt: `What is the primary advantage of Java's JVM architecture when deploying ${cleanTitle}?`,
+      options: [
+        `Write Once, Run Anywhere (WORA): Bytecode runs portably across any OS with a JVM`,
+        `It bypasses all operating system memory protections`,
+        `It requires no computer memory`,
+        `It only works on Oracle hardware`
+      ],
+      correctIndex: 0,
+      explanation: `Correct! Bytecode (.class) is platform-agnostic, allowing Java applications to run identically on Linux, Windows, and macOS.`
+    };
+    keyTakeaways = [
+      `1. Understand JVM memory division: Stack (primitives/frames) vs Heap (objects).`,
+      `2. Design clean, decoupled classes with encapsulation and clear contracts.`,
+      `3. Write unit tests with JUnit 5 to safeguard business logic.`
+    ];
+    realWorldExample = `Enterprise banking architectures and Spring Boot cloud microservices.`;
+    commonMistakes = `Unchecked NullPointerExceptions when calling methods on uninitialized objects.`;
+    bestPractices = `Use Optional, immutable records, and constructor injection.`;
+    practiceExercise = `Write a Java class demonstrating ${cleanTitle} with private fields and getter/setter methods.`;
+  }
 
   return {
     id: meta.topicId,
@@ -1147,75 +2098,25 @@ export function getOrGenerateLesson(targetId) {
     courseTitle: meta.courseTitle,
     moduleTitle: meta.moduleTitle,
     title: cleanTitle,
-    codeLanguage: lang === 'c++' ? 'cpp' : lang,
-    contentMarkdown: `# ${cleanTitle}
-
-Welcome to this dedicated module on **${cleanTitle}** in ${meta.courseTitle}.
-
-### Core Concept:
-${meta.summary}
-
-### Key Learning Objectives:
-1. Understand the core principles and syntax requirements.
-2. Master runtime memory allocation and execution flow.
-3. Write clean, production-ready, maintainable code adhering to industry best practices.`,
-    codeSnippet: lang === 'python'
-      ? `# ${cleanTitle} in Python\ndef main():\n    print("Mastering ${cleanTitle}")\n    items = [1, 2, 3, 4, 5]\n    print("Processed:", [x * 2 for x in items])\n\nif __name__ == '__main__':\n    main()`
-      : lang === 'sql'
-      ? `-- ${cleanTitle} in SQL\nSELECT id, name, category, status \nFROM records \nWHERE status = 'ACTIVE' \nORDER BY id DESC \nLIMIT 5;`
-      : lang === 'javascript'
-      ? `// ${cleanTitle} in JavaScript\nfunction executeTopic() {\n  const message = "Mastering ${cleanTitle}";\n  console.log(message);\n  return { success: true, timestamp: Date.now() };\n}\n\nexecuteTopic();`
-      : `// ${cleanTitle} in ${meta.languageName}\npublic class TopicDemo {\n    public static void main(String[] args) {\n        System.out.println("Mastering ${cleanTitle}");\n        int status = 200;\n        System.out.println("Status Code: " + status);\n    }\n}`,
-    codeExplanationJson: JSON.stringify({
-      whatDoesItDo: `Implements the core logic for ${cleanTitle} following language idioms.`,
-      whyNeeded: `Fundamental building block for writing reliable applications in ${meta.languageName}.`,
-      howItWorks: `Executes instructions sequentially and manages state in runtime memory.`,
-      internalMechanics: `Allocates stack memory frames and tracks variable bindings.`,
-      realWorldUsage: `Applied across microservices, web apps, and enterprise systems.`,
-      commonMistakes: `Check null values and boundary conditions.`
+    codeLanguage: codeLang,
+    contentMarkdown: `# ${cleanTitle}\n\nWelcome to this dedicated module on **${cleanTitle}** in ${meta.courseTitle}.\n\n### Core Concept:\n${meta.summary}\n\n### Key Learning Objectives:\n1. Understand the core principles and syntax requirements of ${meta.languageName}.\n2. Master runtime memory allocation, stack/heap lifecycles, and execution flow.\n3. Write clean, production-ready, maintainable code adhering to industry best practices.`,
+    codeSnippet,
+    codeExplanationJson: JSON.stringify(codeExplanation),
+    howItWorksJson: JSON.stringify({
+      step1: `User initiates ${cleanTitle} lesson in CodePath Academy`,
+      step2: `Interactive 3-pane layout displays curriculum, code editor, and live notes`,
+      step3: `Student inspects 6-aspect breakdown and step-by-step execution stepper`,
+      step4: `Micro check validates concept retention with instant feedback`,
+      step5: `Student earns XP and updates daily streak progress`
     }),
-    analogy: {
-      title: `💡 Real-World Metaphor for ${cleanTitle}`,
-      story: `Think of ${cleanTitle} like a well-organized workspace tool: it solves a specific problem cleanly without unnecessary moving parts, letting you assemble larger systems with total confidence.`,
-      comparisons: [
-        { realWorld: "The Specialized Tool", programming: `${cleanTitle} syntax construct` },
-        { realWorld: "The Final Assembled Product", programming: "The running software application" }
-      ]
-    },
-    executionSteps: [
-      {
-        step: 1,
-        activeLine: 1,
-        title: 'Initialization & Loading',
-        explanation: `Runtime loads definitions for ${cleanTitle}.`,
-        memoryState: { 'status': 'Initialized' },
-        consoleOutput: ''
-      },
-      {
-        step: 2,
-        activeLine: 3,
-        title: 'Execution & Output',
-        explanation: `Executes instructions and outputs result to console.`,
-        memoryState: { 'status': 'Active' },
-        consoleOutput: `Mastering ${cleanTitle}`
-      }
-    ],
-    microCheck: {
-      prompt: `What is the primary benefit of mastering ${cleanTitle}?`,
-      options: [
-        `It provides modularity, clarity, and predictable execution in ${meta.languageName}`,
-        'It makes code run on hardware without a CPU',
-        'It is only used for temporary drafts',
-        'It eliminates the need for software testing'
-      ],
-      correctIndex: 0,
-      explanation: `Spot on! Mastering ${cleanTitle} is essential for writing clean, efficient, and maintainable software.`
-    },
-    keyTakeaways: [
-      `1. Master the fundamentals of ${cleanTitle} before moving to advanced frameworks.`,
-      '2. Write unit tests to verify behavior and guard against regressions.',
-      '3. Follow clean code and industry best practices.'
-    ],
+    realWorldExample,
+    commonMistakes,
+    bestPractices,
+    practiceExercise,
+    analogy,
+    executionSteps,
+    microCheck,
+    keyTakeaways,
     quizId: meta.topicId
   };
 }
@@ -1305,6 +2206,156 @@ export const DEFAULT_QUIZZES = {
         ]
       }
     ]
+  },
+  5001: {
+    id: 5001,
+    topicId: 5001,
+    title: 'C Compilation Pipeline & Architecture Assessment',
+    difficulty: 'BEGINNER',
+    questions: [
+      {
+        id: 1,
+        prompt: 'Which phase of GCC compilation expands #include headers and #define macros?',
+        codeSnippet: null,
+        type: 'SINGLE_CHOICE',
+        conceptTag: 'Preprocessor',
+        hint: 'Think about the step executed with gcc -E before actual machine assembly.',
+        options: [
+          'The Preprocessor',
+          'The Linker',
+          'The Operating System Shell',
+          'The Virtual Machine'
+        ],
+        correctAnswers: ['The Preprocessor'],
+        explanation: 'The Preprocessor handles text substitution, macro expansion, and header inclusions prior to compiler code generation.',
+        optionJustifications: [
+          { option: 'The Preprocessor', isCorrect: true, reason: 'The preprocessor parses all # directives and generates preprocessed code.' },
+          { option: 'The Linker', isCorrect: false, reason: 'The linker combines object files at the very end.' },
+          { option: 'The Operating System Shell', isCorrect: false, reason: 'The shell merely invokes the gcc command.' },
+          { option: 'The Virtual Machine', isCorrect: false, reason: 'C compiles to native machine code; there is no virtual machine.' }
+        ]
+      }
+    ]
+  },
+  5010: {
+    id: 5010,
+    topicId: 5010,
+    title: 'C Pointers & Memory Architecture Assessment',
+    difficulty: 'INTERMEDIATE',
+    questions: [
+      {
+        id: 1,
+        prompt: 'What does the unary & operator do when applied to a variable (e.g., &val) in C?',
+        codeSnippet: null,
+        type: 'SINGLE_CHOICE',
+        conceptTag: 'Pointer Address-Of',
+        hint: 'Distinguish between the value stored and where the variable resides in memory.',
+        options: [
+          'Returns the memory address of the variable in RAM',
+          'Multiplies the variable by 2',
+          'Allocates heap memory',
+          'Converts the variable into a string'
+        ],
+        correctAnswers: ['Returns the memory address of the variable in RAM'],
+        explanation: 'The address-of operator & returns the virtual memory address pointing to the variable location.',
+        optionJustifications: [
+          { option: 'Returns the memory address of the variable in RAM', isCorrect: true, reason: '&val yields the pointer to val.' },
+          { option: 'Multiplies the variable by 2', isCorrect: false, reason: 'Arithmetic operators do multiplication, not unary &.' },
+          { option: 'Allocates heap memory', isCorrect: false, reason: 'Heap memory is allocated via malloc(), not &.' },
+          { option: 'Converts the variable into a string', isCorrect: false, reason: 'No type conversion to string is performed.' }
+        ]
+      }
+    ]
+  },
+  6001: {
+    id: 6001,
+    topicId: 6001,
+    title: 'Modern C++ Syntax & Namespaces Assessment',
+    difficulty: 'BEGINNER',
+    questions: [
+      {
+        id: 1,
+        prompt: 'Why is pass-by-const-reference (const T&) preferred over pass-by-value for complex C++ objects?',
+        codeSnippet: null,
+        type: 'SINGLE_CHOICE',
+        conceptTag: 'Const Reference',
+        hint: 'Consider memory copying of large std::vector or std::string instances.',
+        options: [
+          'It eliminates expensive deep copies while protecting the original object from modification',
+          'It forces the program to run in single-thread mode',
+          'It converts C++ to C syntax',
+          'It causes automatic garbage collection'
+        ],
+        correctAnswers: ['It eliminates expensive deep copies while protecting the original object from modification'],
+        explanation: 'Passing by const reference passes only a pointer-sized memory reference while compiler enforcement ensures immutability.',
+        optionJustifications: [
+          { option: 'It eliminates expensive deep copies while protecting the original object from modification', isCorrect: true, reason: 'Zero-copy efficiency plus const immutability.' },
+          { option: 'It forces the program to run in single-thread mode', isCorrect: false, reason: 'References have no effect on threading.' },
+          { option: 'It converts C++ to C syntax', isCorrect: false, reason: 'References are a native C++ language feature.' },
+          { option: 'It causes automatic garbage collection', isCorrect: false, reason: 'C++ uses deterministic RAII, not GC.' }
+        ]
+      }
+    ]
+  },
+  7001: {
+    id: 7001,
+    topicId: 7001,
+    title: 'Python 3 Execution & Syntax Assessment',
+    difficulty: 'BEGINNER',
+    questions: [
+      {
+        id: 1,
+        prompt: 'In CPython, what primary mechanism handles automatic memory deallocation for objects?',
+        codeSnippet: null,
+        type: 'SINGLE_CHOICE',
+        conceptTag: 'Python Memory Management',
+        hint: 'Every PyObject has an internal ob_refcnt counter.',
+        options: [
+          'Reference counting supplemented by a cyclic garbage collector',
+          'Manual free() calls required in every function',
+          'Memory is never freed in Python',
+          'The operating system swap file'
+        ],
+        correctAnswers: ['Reference counting supplemented by a cyclic garbage collector'],
+        explanation: 'CPython frees objects as soon as their reference count drops to 0, with a cyclic garbage collector collecting circular references.',
+        optionJustifications: [
+          { option: 'Reference counting supplemented by a cyclic garbage collector', isCorrect: true, reason: 'Primary mechanism is reference counting.' },
+          { option: 'Manual free() calls required in every function', isCorrect: false, reason: 'Python has automatic memory management.' },
+          { option: 'Memory is never freed in Python', isCorrect: false, reason: 'Objects with zero references are deallocated immediately.' },
+          { option: 'The operating system swap file', isCorrect: false, reason: 'The OS swap partition is not Python memory management.' }
+        ]
+      }
+    ]
+  },
+  8001: {
+    id: 8001,
+    topicId: 8001,
+    title: 'JavaScript Execution Context Assessment',
+    difficulty: 'BEGINNER',
+    questions: [
+      {
+        id: 1,
+        prompt: 'What happens when accessing a "let" or "const" variable before its declaration in JavaScript?',
+        codeSnippet: null,
+        type: 'SINGLE_CHOICE',
+        conceptTag: 'Temporal Dead Zone',
+        hint: 'Unlike var which returns undefined, let and const are trapped in the TDZ.',
+        options: [
+          'A ReferenceError is thrown because the variable is in the Temporal Dead Zone (TDZ)',
+          'It evaluates to undefined with no error',
+          'It evaluates to null',
+          'The browser immediately reloads'
+        ],
+        correctAnswers: ['A ReferenceError is thrown because the variable is in the Temporal Dead Zone (TDZ)'],
+        explanation: 'Variables declared with let and const cannot be accessed before their declaration line due to the Temporal Dead Zone.',
+        optionJustifications: [
+          { option: 'A ReferenceError is thrown because the variable is in the Temporal Dead Zone (TDZ)', isCorrect: true, reason: 'Accessing TDZ variables results in a ReferenceError.' },
+          { option: 'It evaluates to undefined with no error', isCorrect: false, reason: 'Only var evaluates to undefined during hoisting.' },
+          { option: 'It evaluates to null', isCorrect: false, reason: 'null is an explicit assignment, not a hoisting default.' },
+          { option: 'The browser immediately reloads', isCorrect: false, reason: 'It throws a JS runtime error, not a page reload.' }
+        ]
+      }
+    ]
   }
 };
 
@@ -1316,87 +2367,56 @@ export function getOrGenerateQuiz(targetId) {
 
   const meta = findTopicMetadata(targetId);
   const title = meta ? meta.topicTitle.replace(/^\d+\.\s*/, '') : 'Knowledge Assessment';
+  const langName = meta?.languageName || 'Programming';
 
   return {
     id: Number(targetId) || 1001,
     topicId: Number(targetId) || 1001,
-    title: `${title} Assessment`,
+    title: `${title} Assessment (${langName})`,
     difficulty: 'INTERMEDIATE',
     questions: [
       {
         id: 1,
-        prompt: `Which principle is fundamental when working with ${title}?`,
+        prompt: `Which core principle is fundamental when applying ${title} in ${langName}?`,
         codeSnippet: null,
         type: 'SINGLE_CHOICE',
-        conceptTag: 'Core Concepts',
-        hint: 'Consider how memory safety, clean architecture, and modularity ensure robust software.',
+        conceptTag: `${langName} Fundamentals`,
+        hint: `Consider memory safety, clean modularity, and language-specific best practices.`,
         options: [
-          'Ensuring proper encapsulation, type safety, and clean separation of concerns',
-          'Hardcoding configuration values inside business logic functions',
-          'Ignoring compiler warnings and exception handling',
-          'Disabling all runtime type checks'
+          `Ensuring proper encapsulation, type safety, and clean error handling`,
+          `Hardcoding all configuration values directly in business logic functions`,
+          `Ignoring compiler warnings and runtime exceptions`,
+          `Disabling all automated unit tests`
         ],
-        correctAnswers: ['Ensuring proper encapsulation, type safety, and clean separation of concerns'],
-        explanation: 'Proper encapsulation and type safety are critical principles for maintainable, production-ready engineering.',
+        correctAnswers: [`Ensuring proper encapsulation, type safety, and clean error handling`],
+        explanation: `Clean architecture and robust typing are essential for writing production-grade software in ${langName}.`,
         optionJustifications: [
-          {
-            option: 'Ensuring proper encapsulation, type safety, and clean separation of concerns',
-            isCorrect: true,
-            reason: 'Correct: Clean architecture promotes testability, reliability, and long-term maintainability.'
-          },
-          {
-            option: 'Hardcoding configuration values inside business logic functions',
-            isCorrect: false,
-            reason: 'Antipattern: Configuration should be externalized in environment variables or properties.'
-          },
-          {
-            option: 'Ignoring compiler warnings and exception handling',
-            isCorrect: false,
-            reason: 'Dangerous: Compiler warnings often highlight potential runtime bugs or memory leaks.'
-          },
-          {
-            option: 'Disabling all runtime type checks',
-            isCorrect: false,
-            reason: 'Incorrect: Runtime type checks protect against class cast exceptions.'
-          }
+          { option: `Ensuring proper encapsulation, type safety, and clean error handling`, isCorrect: true, reason: 'Correct: Follows industry software engineering standards.' },
+          { option: `Hardcoding all configuration values directly in business logic functions`, isCorrect: false, reason: 'Antipattern: Configuration must be decoupled.' },
+          { option: `Ignoring compiler warnings and runtime exceptions`, isCorrect: false, reason: 'Dangerous: Compiler warnings highlight defects.' },
+          { option: `Disabling all automated unit tests`, isCorrect: false, reason: 'Incorrect: Tests guarantee regression safety.' }
         ]
       },
       {
         id: 2,
-        prompt: `What is the expected outcome of applying this ${title} pattern correctly?`,
+        prompt: `What is the primary architectural benefit of mastering ${title} in ${langName}?`,
         codeSnippet: null,
         type: 'SINGLE_CHOICE',
-        conceptTag: 'Best Practices',
-        hint: 'Think about maintainability, testability, and runtime predictability.',
+        conceptTag: 'Production Architecture',
+        hint: 'Think about runtime predictability, performance, and long-term maintainability.',
         options: [
-          'High testability, predictable state transitions, and lower maintenance costs',
+          'High testability, predictable state transitions, and lower maintenance overhead',
           'Uncontrolled memory leaks and random crashes',
-          'Complete inability to debug the application',
-          'Slower network speeds on the client machine'
+          'Inability to inspect stack traces during debugging',
+          'Degrading physical network speeds'
         ],
-        correctAnswers: ['High testability, predictable state transitions, and lower maintenance costs'],
-        explanation: 'Applying industry standard design patterns ensures code is easy to test, debug, and scale.',
+        correctAnswers: ['High testability, predictable state transitions, and lower maintenance overhead'],
+        explanation: 'Applying industry standard idioms ensures code is easy to test, maintain, and scale.',
         optionJustifications: [
-          {
-            option: 'High testability, predictable state transitions, and lower maintenance costs',
-            isCorrect: true,
-            reason: 'Accurate: Good design patterns reduce cognitive load and simplify automated testing.'
-          },
-          {
-            option: 'Uncontrolled memory leaks and random crashes',
-            isCorrect: false,
-            reason: 'Incorrect: Proper patterns prevent memory leaks rather than causing them.'
-          },
-          {
-            option: 'Complete inability to debug the application',
-            isCorrect: false,
-            reason: 'Incorrect: Clear patterns enhance observability and debuggability.'
-          },
-          {
-            option: 'Slower network speeds on the client machine',
-            isCorrect: false,
-            reason: 'Irrelevant: Code patterns do not degrade physical network speed.'
-          }
+          { option: 'High testability, predictable state transitions, and lower maintenance overhead', isCorrect: true, reason: 'Accurate: Good patterns reduce bugs and cognitive load.' },
+          { option: 'Uncontrolled memory leaks and random crashes', isCorrect: false, reason: 'Incorrect: Proper patterns prevent memory leaks.' },
+          { option: 'Inability to inspect stack traces during debugging', isCorrect: false, reason: 'Incorrect: Clean architecture enhances observability.' },
+          { option: 'Degrading physical network speeds', isCorrect: false, reason: 'Irrelevant: Code patterns do not alter physical network cables.' }
         ]
       }
     ]
